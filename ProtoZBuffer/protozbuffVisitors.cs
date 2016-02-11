@@ -1,6 +1,4 @@
-﻿using protozbuffer.Annotations;
-
-namespace protozbuffer
+﻿namespace protozbuffer
 {
     public interface IAstNode
     {
