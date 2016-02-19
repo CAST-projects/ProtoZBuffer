@@ -1,14 +1,11 @@
-﻿using System;
-using System.IO;
-
-namespace protozbuffer
+﻿namespace protozbuffer
 {
     public static class Ext
     {
         public static string Capitalize(this string x)
         {
             var chars = x.ToCharArray();
-            chars[0] = Char.ToUpper(chars[0]);
+            chars[0] = char.ToUpper(chars[0]);
             return new string(chars);
         }
 
