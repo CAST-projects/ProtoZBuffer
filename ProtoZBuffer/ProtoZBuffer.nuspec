@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ProtoZBuffer</id>
+    <version>1.0.0.0</version>
+    <title>ProtoZBuffer</title>
+    <authors>CAST</authors>
+    <owners>CAST</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>protozbuffer description</description>
+    <projectUrl>https://github.com/CAST-projects/ProtoZBuffer.git</projectUrl>
+      <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.dll" target="tools"/>
+    <file src="bin\Release\*.exe" target="tools" exclude="bin\Release\*.vshost.exe"/>
+    <file src="bin\Release\*.config" target="tools"/>
+  </files>
+</package>
