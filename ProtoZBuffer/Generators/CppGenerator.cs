@@ -85,10 +85,20 @@ namespace protozbuffer.Generators
             return new string('}', nspaces.Length);
         }
 
-        // from my::name::space, return  my/name/space
+        // from my::name::space, return  my<s>name<s>space where <s> is the platform specific directory separator
         private string GetNamespacePath(string nspace)
         {
-            return nspace.Replace(NamespaceSeparator, Path.DirectorySeparatorChar.ToString());
+            return InternalGetNamespacePath(nspace, Path.DirectorySeparatorChar);
+        }
+        // from my::name::space, return  my/name/space
+        private string GetNamespacePathSlash(string nspace)
+        {
+            return InternalGetNamespacePath(nspace, '/');
+        }
+        // from my::name::space, return  my<s>name<s>space where <s> is the provided directory separator
+        private string InternalGetNamespacePath(string nspace, char directorySeparator)
+        {
+            return nspace.Replace(NamespaceSeparator, directorySeparator.ToString());
         }
 
         protected override bool GenerateLazyImplementation(protozbuffType p)
@@ -108,7 +118,7 @@ namespace protozbuffer.Generators
 #include ""{1}.pb.h""
 #include ""{0}/ArrayList.h""
 #include ""{0}/Util.h""
-", GetNamespacePath(ResourceNamespace), DocumentName);
+", GetNamespacePathSlash(ResourceNamespace), DocumentName);
 
             // forward declaration for final client classes
             IncludeWriter.WriteLine(GetNamespaceBegin(Namespace));
@@ -122,11 +132,11 @@ namespace protozbuffer.Generators
 
             CppWriter.WriteLine("#include <stdafx.h>");
             CppWriter.WriteLine("#include <sstream>");
-            CppWriter.WriteLine("#include <{0}/{1}.h>", GetNamespacePath(GeneratedNamespace), baseName);
-            CppWriter.WriteLine("#include <{0}/Util.h>", GetNamespacePath(ResourceNamespace));
+            CppWriter.WriteLine("#include <{0}/{1}.h>", GetNamespacePathSlash(GeneratedNamespace), baseName);
+            CppWriter.WriteLine("#include <{0}/Util.h>", GetNamespacePathSlash(ResourceNamespace));
             foreach (var message in p.Items.OfType<messageType>())
             {
-                CppWriter.WriteLine(@"#include <{0}/{1}.h>", GetNamespacePath(Namespace), message.name.Capitalize());
+                CppWriter.WriteLine(@"#include <{0}/{1}.h>", GetNamespacePathSlash(Namespace), message.name.Capitalize());
             }
 
             CppWriter.WriteLine(@"using namespace {0};", ResourceNamespace);
@@ -1215,7 +1225,7 @@ namespace protozbuffer.Generators
     }};
 {5}
 "
-, GetNamespacePath(GeneratedNamespace), // 0
+, GetNamespacePathSlash(GeneratedNamespace), // 0
 DocumentName + ".lazy",                 // 1
 GetNamespaceBegin(Namespace),           // 2
 message.name.Capitalize(),              // 3
@@ -1246,7 +1256,7 @@ GetNamespaceEnd(Namespace));            // 5
 
 {3}
 "
-, GetNamespacePath(Namespace), // 0
+, GetNamespacePathSlash(Namespace), // 0
 message.name.Capitalize(),              // 1
 GetNamespaceBegin(Namespace),           // 2
 GetNamespaceEnd(Namespace));            // 3);
