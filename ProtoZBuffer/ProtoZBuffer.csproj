@@ -85,6 +85,29 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\csharp\IStretchable.cs" />
+    <EmbeddedResource Include="res\csharp\WeakStretchable.cs" />
+    <EmbeddedResource Include="res\csharp\Stretchable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\Extensions.java" />
+    <EmbeddedResource Include="res\java\IFilter.java" />
+    <EmbeddedResource Include="res\java\IFormat.java" />
+    <EmbeddedResource Include="res\java\IMapper.java" />
+    <EmbeddedResource Include="res\java\IProduct.java" />
+    <EmbeddedResource Include="res\java\IStretchableArray.java" />
+    <EmbeddedResource Include="res\java\LazyArray.java" />
+    <EmbeddedResource Include="res\java\StretchableArray.java" />
+    <EmbeddedResource Include="res\java\IIOStream.java" />
+    <EmbeddedResource Include="res\java\ByteArrayIOStream.java" />
+    <EmbeddedResource Include="res\java\FileIOStream.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\cpp\ArrayList.h" />
+    <EmbeddedResource Include="res\cpp\Util.cpp" />
+    <EmbeddedResource Include="res\cpp\Util.h" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
