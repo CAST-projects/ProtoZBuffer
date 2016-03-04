@@ -18,6 +18,7 @@
   <files>
     <file src="bin\Release\*.dll" target="tools"/>
     <file src="bin\Release\*.exe" target="tools" exclude="bin\Release\*.vshost.exe"/>
-    <file src="bin\Release\*.config" target="tools"/>
+    <file src="bin\Release\*.config" target="tools" exclude="bin\Release\*.vshost.*.config"/>
+    <file src="bin\Release\protobuf-generator\protoc.exe" target="tools\protobuf-generator" />
   </files>
 </package>
