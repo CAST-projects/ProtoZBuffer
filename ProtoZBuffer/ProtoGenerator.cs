@@ -19,8 +19,6 @@ namespace protozbuffer
         {
             using (var textfile = File.CreateText(protoFilename))
             {
-                // Test for now
-                textfile.WriteLine("syntax='proto3';");
                 Generate(p, textfile, nspace);
             }
         }

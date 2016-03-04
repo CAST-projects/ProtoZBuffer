@@ -33,17 +33,17 @@ namespace protozbuffer.Generators
         {
             set
             {
-                myProtoGenFolder = string.IsNullOrEmpty(value) ?
-                    Path.GetDirectoryName(GetType().Assembly.Location) :
+                _myProtoGenFolder = string.IsNullOrEmpty(value) ?
+                    Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "protobuf-generator") :
                     value;
             }
 
             protected get
             {
-                return myProtoGenFolder;
+                return _myProtoGenFolder;
             }
         }
-        private string myProtoGenFolder;
+        private string _myProtoGenFolder;
 
         ///<summary>Base name for the generated .proto file, and the .lazy file</summary> 
         protected string DocumentName
@@ -82,6 +82,7 @@ namespace protozbuffer.Generators
             // protobufs package option (i.e. namespace) needs dots
             var protobufPackage = GeneratedNamespace.Replace(NamespaceSeparator, ".");
             ProtoGenerator.Generate(p, ProtoFile, protobufPackage); // generate .proto file
+
             CallProtocExe();
 
             return GenerateLazyImplementation(p);

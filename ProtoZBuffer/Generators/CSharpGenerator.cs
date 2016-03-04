@@ -36,12 +36,9 @@ namespace protozbuffer.Generators
         {
             get
             {
-                //var cmd = Path.Combine(ProtoGenFolder, "ProtoGen.exe"); // path to ProtoGen.exe
-                var assembly = GetType().Assembly;
-                var cmd = Path.Combine(Path.GetDirectoryName(assembly.Location), @"protobuf-generator\protoc.exe");
-                //cmd += " "
+                var cmd = Path.Combine(ProtoGenFolder, @"ProtoGen.exe");
                 cmd += string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
-                cmd += string.Format(" --csharp_out=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
+                cmd += string.Format(" -output_directory=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
                 cmd += string.Format(" \"{0}\"", ProtoFile);
                 return cmd;
             }
