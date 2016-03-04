@@ -33,15 +33,17 @@ namespace protozbuffer
 
                 foreach (var index in msg.index)
                 {
-                    var indexedField = msg.field.Where(field => field.id == index.forField).SingleOrDefault();
+                    var indexedField = msg.field.SingleOrDefault(field => field.id == index.forField);
 
                     // convert index to repeated references 
-                    index.referenceField = new fieldType();
-                    index.referenceField.id = index.id;
-                    index.referenceField.modifier = modifierType.repeated;
-                    index.referenceField.type = typeType.referenceMessage;
-                    index.referenceField.messageType = indexedField.messageType;
-                    index.referenceField.name = indexedField.name;
+                    index.referenceField = new fieldType
+                    {
+                        id = index.id,
+                        modifier = modifierType.repeated,
+                        type = typeType.referenceMessage,
+                        messageType = indexedField.messageType,
+                        name = indexedField.name
+                    };
 
                     if (string.IsNullOrEmpty(index.name))
                     {

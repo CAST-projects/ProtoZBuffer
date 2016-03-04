@@ -75,13 +75,25 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="protobuf-generator\ProtoGen.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="protozbuff.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ProtoZBuffer.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="protobuf-generator\Google.ProtocolBuffers.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="protobuf-generator\Google.ProtocolBuffers.Serialization.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="protobuf-generator\protoc.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="protobuf-generator\ProtoGen.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
