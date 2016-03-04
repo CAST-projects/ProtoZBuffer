@@ -7,7 +7,7 @@
     <authors>CAST</authors>
     <owners>CAST</owners>
     <licenseUrl>https://opensource.org/licenses/LGPL-3.0</licenseUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>protozbuffer description</description>
     <projectUrl>https://github.com/CAST-projects/ProtoZBuffer.git</projectUrl>
     <releaseNotes>First version</releaseNotes>
