@@ -18,7 +18,7 @@ namespace protozbuffer.Generators
 
         protected override string ResourceNamespace
         {
-            get { return "CastIL::Common"; }
+            get { return Namespace + "::Common"; }
         }
 
         private string IncludesFolder

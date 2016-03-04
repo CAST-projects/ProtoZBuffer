@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 
@@ -18,7 +19,7 @@ namespace protozbuffer.Generators
 
         protected override string ResourceNamespace
         {
-            get { return "CastIL.Common"; }
+            get { return Namespace + ".Common"; }
         }
 
         protected override void InstallResources()
@@ -35,7 +36,7 @@ namespace protozbuffer.Generators
         {
             get
             {
-                var cmd = Path.Combine(ProtoGenFolder, "ProtoGen.exe"); // path to ProtoGen.exe
+                var cmd = Path.Combine(ProtoGenFolder, @"ProtoGen.exe");
                 cmd += string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
                 cmd += string.Format(" -output_directory=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
                 cmd += string.Format(" \"{0}\"", ProtoFile);
@@ -1373,10 +1374,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
-using CastIL.Common;
+using {1}.Common;
 using Google.ProtocolBuffers;
 using {0};
-", GeneratedNamespace);
+", GeneratedNamespace, Namespace);
         }
 
         private static string FieldType(fieldType node, string suffix = "")

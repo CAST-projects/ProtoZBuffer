@@ -33,17 +33,17 @@ namespace protozbuffer.Generators
         {
             set
             {
-                myProtoGenFolder = string.IsNullOrEmpty(value) ?
-                    Path.GetDirectoryName(GetType().Assembly.Location) :
+                _myProtoGenFolder = string.IsNullOrEmpty(value) ?
+                    Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "protobuf-generator") :
                     value;
             }
 
             protected get
             {
-                return myProtoGenFolder;
+                return _myProtoGenFolder;
             }
         }
-        private string myProtoGenFolder;
+        private string _myProtoGenFolder;
 
         ///<summary>Base name for the generated .proto file, and the .lazy file</summary> 
         protected string DocumentName
@@ -82,6 +82,7 @@ namespace protozbuffer.Generators
             // protobufs package option (i.e. namespace) needs dots
             var protobufPackage = GeneratedNamespace.Replace(NamespaceSeparator, ".");
             ProtoGenerator.Generate(p, ProtoFile, protobufPackage); // generate .proto file
+
             CallProtocExe();
 
             return GenerateLazyImplementation(p);
@@ -90,8 +91,9 @@ namespace protozbuffer.Generators
         protected void CopyResourceToOutput(Assembly assembly, string resource, string outputFolder, string nspace)
         {
             Directory.CreateDirectory(outputFolder);
+            
             using (var output = GetStream(outputFolder, resource, nspace))
-            using (var input = assembly.GetManifestResourceStream("protozbuffer.res." + ResourceFolder + "." + resource))
+            using (var input = assembly.GetManifestResourceStream("ProtoZBuffer.res." + ResourceFolder + "." + resource))
             {
                 if (input == null)
                 {
@@ -115,14 +117,16 @@ namespace protozbuffer.Generators
             var commandLine = ProtocCommandLine;
             Logger.Info(commandLine);
 
-            var process = new System.Diagnostics.Process();
-            process.StartInfo = new System.Diagnostics.ProcessStartInfo
+            var process = new System.Diagnostics.Process
             {
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
-                FileName = "cmd.exe",
-                Arguments = "/C " + commandLine,
-                UseShellExecute = false,
-                RedirectStandardError = true
+                StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                    FileName = "cmd.exe",
+                    Arguments = "/C " + commandLine,
+                    UseShellExecute = false,
+                    RedirectStandardError = true
+                }
             };
 
             process.Start();
@@ -130,7 +134,7 @@ namespace protozbuffer.Generators
 
             if (process.ExitCode != 0)
             {
-                throw new System.Exception("Failed: " + process.StandardError.ReadToEnd());
+                throw new Exception("Failed: " + process.StandardError.ReadToEnd());
             }
         }
 
