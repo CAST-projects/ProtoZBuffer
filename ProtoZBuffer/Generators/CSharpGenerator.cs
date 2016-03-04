@@ -19,7 +19,7 @@ namespace protozbuffer.Generators
 
         protected override string ResourceNamespace
         {
-            get { return "CastIL.Common"; }
+            get { return Namespace + ".Common"; }
         }
 
         protected override void InstallResources()
@@ -1374,10 +1374,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
-using CastIL.Common;
+using {1}.Common;
 using Google.ProtocolBuffers;
 using {0};
-", GeneratedNamespace);
+", GeneratedNamespace, Namespace);
         }
 
         private static string FieldType(fieldType node, string suffix = "")

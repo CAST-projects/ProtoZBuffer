@@ -19,7 +19,7 @@ namespace protozbuffer.Generators
         {
             get
             {
-                return "com.castsoftware.common";
+                return Namespace + ".common";
             }
         }
 
