@@ -46,7 +46,7 @@ namespace protozbuffer
 
         static bool CommonVisit<T>(AbstractOption option) where T : AbstractGenerator, new()
         {
-            if (string.IsNullOrEmpty(option.Namespace) || string.IsNullOrWhiteSpace(option.Namespace))
+            if (string.IsNullOrWhiteSpace(option.Namespace))
             {
                 Logger.Fatal("Namespace option must not be empty or whitespace only");
                 return false;
