@@ -6,14 +6,13 @@
     <title>ProtoZBuffer</title>
     <authors>CAST</authors>
     <owners>CAST</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <licenseUrl>https://opensource.org/licenses/LGPL-3.0</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>protozbuffer description</description>
     <projectUrl>https://github.com/CAST-projects/ProtoZBuffer.git</projectUrl>
-      <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <releaseNotes>First version</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>Lightweight Structured Database</tags>
   </metadata>
   <files>
     <file src="bin\Release\*.dll" target="tools"/>
