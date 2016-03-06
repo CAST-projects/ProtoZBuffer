@@ -538,7 +538,7 @@ namespace protozbuffer.Generators
             {0}->setFieldId({5});
             {0}->setIndex(index);
             {0}->setParent(this);
-            m_{0}List.set(index, {0});
+            m_{0}List.set(index, std::move({0}));
             return *m_{0}List.get(index);
         }}
 
@@ -556,13 +556,13 @@ namespace protozbuffer.Generators
 
         {3}& Abstract{4}::get{1}(int index)
         {{
-            if (m_{0}List.get(index) == nullptr)
+            if (!m_{0}List.get(index))
             {{
                 auto {0} = {3}::ParseFrom(contentStream(), m_header.{2}(index));
                 {0}->setFieldId({5});
                 {0}->setIndex(index);
                 {0}->setParent(this);
-                m_{0}List.set(index, {0});
+                m_{0}List.set(index, std::move({0}));
             }}
             return *m_{0}List.get(index);
         }}
@@ -1240,26 +1240,37 @@ GetNamespaceEnd(Namespace));            // 5
             {
                 strm.WriteLine(
 @"#include <stdafx.h>
-#include ""include/{0}/{1}.h""
+#include ""include/{0}/{1}.h"""
+, GetNamespacePathSlash(Namespace),  // 0
+message.name.Capitalize()            // 1
+);
+                foreach (var field in message.field.Where(_ => _.type == typeType.nestedMessage))
+                {
+                strm.WriteLine(
+@"#include ""include/{0}/{1}.h"""
+, GetNamespacePathSlash(Namespace),  // 0
+field.messageType.Capitalize()       // 1
+);
+                }
+
+                strm.WriteLine(
+@"{1}
+
+    {0}::{0}()
+    {{
+        // NOP
+    }}
+
+    {0}::{0}(const generated::{0}Header& header, int posInContent) : Abstract{0}(header, posInContent)
+    {{
+        // NOP
+    }}
 
 {2}
-
-    {1}::{1}()
-    {{
-        // NOP
-    }}
-
-    {1}::{1}(const generated::{1}Header& header, int posInContent) : Abstract{1}(header, posInContent)
-    {{
-        // NOP
-    }}
-
-{3}
 "
-, GetNamespacePathSlash(Namespace), // 0
-message.name.Capitalize(),              // 1
-GetNamespaceBegin(Namespace),           // 2
-GetNamespaceEnd(Namespace));            // 3);
+, message.name.Capitalize(),            // 0
+GetNamespaceBegin(Namespace),           // 1
+GetNamespaceEnd(Namespace));            // 2);
             }
         }
 
