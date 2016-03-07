@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 
 namespace protozbuffer.Generators
 {

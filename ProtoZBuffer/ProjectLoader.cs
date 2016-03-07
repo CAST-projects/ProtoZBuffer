@@ -1,19 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace protozbuffer
 {
-    static class ProtozbuffLoader  
+    static internal class ProtozbuffLoader  
     {
+        /// <summary>
+        /// Load an xml file from <paramref name="p"/> as an instance of protozbuff format
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static protozbuffType Load(string p)
         {
+            if (string.IsNullOrWhiteSpace(p)) return null;
+            protozbuffType rootNode = null;
+            try
+            {
+                using (var file = File.OpenText(p))
+                {
+                    rootNode = Load(file);
+                }
+            }
+            catch (FileNotFoundException f)
+            {
+                Logger.Fatal(f.Message);
+            }
+            return rootNode;
+        }
+
+        /// <summary>
+        /// Load a stream <paramref name="s"/> with respect to protozbuff format
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        internal static protozbuffType Load(TextReader s)
+        {
             var ser = new XmlSerializer(typeof(protozbuffType));
-
-            var root = (protozbuffType)ser.Deserialize(File.OpenText(p));
-
+            protozbuffType root;
+            try
+            {
+                root = (protozbuffType)ser.Deserialize(s);
+            }
+            catch (InvalidOperationException e)
+            {
+                Logger.Fatal(e.Message);
+                return null;
+            }
             Check(root);
             UpdateIndexes(root);
 
@@ -91,7 +128,6 @@ namespace protozbuffer
                 if (field.messageType != null && allMessages.SingleOrDefault(m => m.name == field.messageType) == null)
                 {
                     Logger.Fatal("Message {0}: field {1} references unknown message {2}", msg.name, field.name, field.messageType);
-                    continue;
                 }
             }
         }
@@ -103,7 +139,7 @@ namespace protozbuffer
 
             foreach (var index in msg.index)
             {
-                var indexedField = msg.field.Where(field => field.id == index.forField).SingleOrDefault();
+                var indexedField = msg.field.SingleOrDefault(field => field.id == index.forField);
                 if (indexedField == null)
                 {
                     Logger.Fatal("Message {0}: index {1} references unknown field {2}", msg.name, index.id, index.forField);
@@ -142,7 +178,6 @@ namespace protozbuffer
                 if (new[] { typeType.nestedMessage, typeType.referenceMessage }.Contains(sortingField.type))
                 {
                     Logger.Fatal("Message {0}: index {1}'s sortBy ({2}) can't be a message", msg.name, index.id, index.sortBy);
-                    continue;
                 }
             }
         }

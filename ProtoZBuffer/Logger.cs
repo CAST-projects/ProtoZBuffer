@@ -1,4 +1,5 @@
 ﻿using log4net;
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace protozbuffer
 {
@@ -8,8 +9,7 @@ namespace protozbuffer
 
         static Logger()
         {
-            log4net.Config.XmlConfigurator.Configure();
-            Log = LogManager.GetLogger("DynamicLinks main");
+            Log = LogManager.GetLogger("ProtoZBuffer");
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace protozbuffer
         /// <param name="args">arguments</param>
         public static void Fatal(string message, params object[] args)
         {
-            throw new System.FormatException(string.Format(message, args));
+            Log.FatalFormat(message, args);
         }
     }
 }
