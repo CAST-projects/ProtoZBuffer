@@ -4,6 +4,14 @@ using protozbuffer;
 
 namespace ProtoZBuffer.Tests
 {
+    internal static class StringNormalizer
+    {
+        public static string RemoveCarriageReturn(this string str)
+        {
+            return str.Replace("\r", "");
+        }
+    }
+
     [TestFixture]
     class ProtoGeneratorTest
     {
@@ -20,7 +28,7 @@ namespace ProtoZBuffer.Tests
   </message>
 </protozbuff>"));
 
-            const string result = @"package bar;
+            var result = @"package bar;
 
 message FolderHeader
 {
@@ -32,10 +40,10 @@ message LocalMessageDescriptor
 {
     repeated int32 coordinate = 1 [packed=true];
 }
-";
+".RemoveCarriageReturn();
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result));
         }
 
         [Test]
@@ -49,7 +57,7 @@ message LocalMessageDescriptor
   </message>
 </protozbuff>"));
 
-            const string result = @"package bar;
+            var result = @"package bar;
 
 message FolderHeader
 {
@@ -60,10 +68,10 @@ message LocalMessageDescriptor
 {
     repeated int32 coordinate = 1 [packed=true];
 }
-";
+".RemoveCarriageReturn();
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result));
         }
 
         [Test]
@@ -81,7 +89,7 @@ message LocalMessageDescriptor
   </enum>
 </protozbuff>"));
 
-            const string result = @"package bar;
+            var result = @"package bar;
 
 message FolderHeader
 {
@@ -98,10 +106,10 @@ message LocalMessageDescriptor
 {
     repeated int32 coordinate = 1 [packed=true];
 }
-";
+".RemoveCarriageReturn();
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result));
         }
     }
 }

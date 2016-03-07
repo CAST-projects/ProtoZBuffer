@@ -46,21 +46,20 @@ namespace protozbuffer.Generators
 
         protected override bool GenerateLazyImplementation(protozbuffType p)
         {
-            Writer = GetStream(OutputFolder, DocumentName + ".lazy.cs", GeneratedNamespace);
-            WriteAutoGenerationWarning(Writer);
-            WriteUsings();
+            using (Writer = GetStream(OutputFolder, DocumentName + ".lazy.cs", GeneratedNamespace))
+            {
+                WriteAutoGenerationWarning(Writer);
+                WriteUsings();
 
-            Writer.WriteLine(
-@"namespace {0}
+                Writer.WriteLine(
+                    @"namespace {0}
 {{
 ", Namespace);
 
-            base.GenerateLazyImplementation(p);
+                base.GenerateLazyImplementation(p);
 
-            Writer.WriteLine("}");
-
-            Writer.Dispose();
-            Writer = null;
+                Writer.WriteLine("}");
+            }
 
             return true;
         }

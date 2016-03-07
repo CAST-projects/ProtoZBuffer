@@ -7,7 +7,7 @@ namespace protozbuffer.Generators
 {
     abstract class AbstractGenerator : IGenerator
     {
-        public AbstractGenerator()
+        protected AbstractGenerator()
         {
             ProtoGenFolder = null;
         }
