@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace protozbuffer
@@ -15,7 +17,20 @@ namespace protozbuffer
         /// <returns></returns>
         public static protozbuffType Load(string p)
         {
-            return Load(File.OpenText(p));
+            if (string.IsNullOrWhiteSpace(p)) return null;
+            protozbuffType rootNode = null;
+            try
+            {
+                using (var file = File.OpenText(p))
+                {
+                    rootNode = Load(file);
+                }
+            }
+            catch (FileNotFoundException f)
+            {
+                Logger.Fatal(f.Message);
+            }
+            return rootNode;
         }
 
         /// <summary>
@@ -26,7 +41,16 @@ namespace protozbuffer
         internal static protozbuffType Load(TextReader s)
         {
             var ser = new XmlSerializer(typeof(protozbuffType));
-            var root = (protozbuffType) ser.Deserialize(s);
+            protozbuffType root;
+            try
+            {
+                root = (protozbuffType)ser.Deserialize(s);
+            }
+            catch (InvalidOperationException e)
+            {
+                Logger.Fatal(e.Message);
+                return null;
+            }
             Check(root);
             UpdateIndexes(root);
 
