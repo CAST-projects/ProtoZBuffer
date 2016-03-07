@@ -36,7 +36,6 @@ namespace ProtoZBuffer.tests
         public void ValidProtoZBufferFile()
         {
             CreateFile(@"<?xml version=""1.0"" encoding=""utf-8"" ?>
-
 <protozbuff xmlns=""http://tempuri.org/protoZ.xsd"">
   <message name=""Folder"" description=""Document definition"">
     <field id=""1"" modifier=""required"" name=""name"" type=""string""
@@ -51,6 +50,7 @@ namespace ProtoZBuffer.tests
            description=""File Name."" />
   </message>
 </protozbuff>");
+
             protozbuffType protoTree = null;
             Assert.DoesNotThrow(() => protoTree = ProtozbuffLoader.Load(_tempFilePath));
             Assert.That(protoTree, Is.Not.Null);
@@ -59,14 +59,15 @@ namespace ProtoZBuffer.tests
         [Test]
         public void EmptyFilePath()
         {
-            Assert.DoesNotThrow(() => ProtozbuffLoader.Load(""));
+            protozbuffType protoTree = null;
+            Assert.DoesNotThrow(() => protoTree = ProtozbuffLoader.Load(""));
+            Assert.That(protoTree, Is.Null);
         }
 
         [Test]
         public void InvalidProtoZBufferFile()
         {
             CreateFile(@"<?xml version=""1.0"" encoding=""utf-8"" ?>
-
 <protozbuff xmlns=""http://tempuri.org/protoZ.xsd"">
   <message name=""Folder"" description=""Document definition"">
     <field id=""1"" modifier=""required"" name=""name"" type=""string""
@@ -74,7 +75,10 @@ namespace ProtoZBuffer.tests
     </message>
   </message>
 </protozbuff>");
-            Assert.DoesNotThrow(() => ProtozbuffLoader.Load(_tempFilePath));
+
+            protozbuffType protoTree = null;
+            Assert.DoesNotThrow(() => protoTree = ProtozbuffLoader.Load(_tempFilePath));
+            Assert.That(protoTree, Is.Null);
         }
 
     }
