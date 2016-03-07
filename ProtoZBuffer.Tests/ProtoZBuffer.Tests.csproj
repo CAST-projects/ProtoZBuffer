@@ -6,8 +6,8 @@
     <ProjectGuid>{83AEE81A-E072-4817-A159-F32BD9C4E528}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProtoZBuffer.tests</RootNamespace>
-    <AssemblyName>ProtoZBuffer.tests</AssemblyName>
+    <RootNamespace>ProtoZBuffer.Tests</RootNamespace>
+    <AssemblyName>ProtoZBuffer.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,7 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ProtoZBuffer.csproj">
+    <ProjectReference Include="..\ProtoZBuffer\ProtoZBuffer.csproj">
       <Project>{c2a6176c-2e2d-4d75-8d5a-f8842448f30b}</Project>
       <Name>ProtoZBuffer</Name>
     </ProjectReference>

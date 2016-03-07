@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoZBuffer", "ProtoZBuffer\src\ProtoZBuffer.csproj", "{C2A6176C-2E2D-4D75-8D5A-F8842448F30B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoZBuffer", "ProtoZBuffer\ProtoZBuffer.csproj", "{C2A6176C-2E2D-4D75-8D5A-F8842448F30B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BFB5E9DB-F3DF-4ABF-8B06-EAF467852969}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BFB5E9
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoZBuffer.tests", "ProtoZBuffer\tests\ProtoZBuffer.tests\ProtoZBuffer.tests.csproj", "{83AEE81A-E072-4817-A159-F32BD9C4E528}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoZBuffer.Tests", "ProtoZBuffer.Tests\ProtoZBuffer.Tests.csproj", "{83AEE81A-E072-4817-A159-F32BD9C4E528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
