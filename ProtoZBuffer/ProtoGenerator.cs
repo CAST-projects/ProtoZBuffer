@@ -7,7 +7,6 @@ namespace protozbuffer
     {
         readonly TextWriter _strm;
         private readonly string _namespace;
-        private messageType _currentMsg; 
 
         private ProtoGenerator(TextWriter strm, string nspace)
         {
@@ -23,7 +22,7 @@ namespace protozbuffer
             }
         }
 
-        private static void Generate(IAstNode p, TextWriter streamWriter, string nspace)
+        internal static void Generate(IAstNode p, TextWriter streamWriter, string nspace)
         {
             p.Accept(new ProtoGenerator(streamWriter,nspace));
         }
@@ -106,7 +105,6 @@ namespace protozbuffer
 
         public void Visit(messageType node)
         {
-            _currentMsg = node;
             _strm.WriteLine("message {0}Header", node.name);
             _strm.WriteLine("{");
 
@@ -121,7 +119,6 @@ namespace protozbuffer
             }
 
             _strm.WriteLine("}");
-            _currentMsg = null;
         }
 
         public void Visit(protozbuffType node)
@@ -142,7 +139,7 @@ namespace protozbuffer
             _strm.WriteLine();
             _strm.WriteLine("message LocalMessageDescriptor");
             _strm.WriteLine("{");
-            _strm.WriteLine("	repeated int32 coordinate = 1 [packed=true];");
+            _strm.WriteLine("    repeated int32 coordinate = 1 [packed=true];");
             _strm.WriteLine("}");
         }
     }

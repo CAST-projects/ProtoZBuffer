@@ -52,6 +52,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ProtoGeneratorTest.cs" />
     <Compile Include="ProtozbuffLoaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
