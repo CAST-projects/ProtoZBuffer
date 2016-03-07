@@ -87,6 +87,7 @@ namespace protozbuffer
                         index.name = indexedField.name + "By" + index.sortBy.Capitalize();
                     }
 
+                    // TODO check that only referenceMessage types are used for index on fields
                     var referencedFieldMessageType = allMessages.SingleOrDefault(m => m.name == index.referenceField.messageType);
                     var sortingField = referencedFieldMessageType.field.SingleOrDefault(field => field.name == index.sortBy);
                     index.sortingField = sortingField;
