@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using protozbuffer.Annotations;
+using ProtoZBuffer.Properties;
 
 namespace protozbuffer
 {
