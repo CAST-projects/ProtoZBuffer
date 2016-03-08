@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace protozbuffer.Generators
+namespace ProtoZBuffer.Generators
 {
     abstract class AbstractGenerator : IGenerator
     {

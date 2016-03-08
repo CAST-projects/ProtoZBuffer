@@ -1,4 +1,4 @@
-﻿namespace protozbuffer
+﻿namespace ProtoZBuffer
 {
     static class Program
     {

@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using protozbuffer.Generators;
+using ProtoZBuffer.Generators;
 
-namespace protozbuffer
+namespace ProtoZBuffer
 {
     class CommandLineExecuter : IOptionVisitor
     {

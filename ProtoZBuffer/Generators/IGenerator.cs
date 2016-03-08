@@ -1,4 +1,4 @@
-﻿namespace protozbuffer.Generators
+﻿namespace ProtoZBuffer.Generators
 {
     interface IGenerator
     {

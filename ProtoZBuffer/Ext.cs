@@ -1,4 +1,4 @@
-﻿namespace protozbuffer
+﻿namespace ProtoZBuffer
 {
     public static class Ext
     {

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Mime;
 
-namespace protozbuffer
+namespace ProtoZBuffer
 {
     class ProtoGenerator : IAstNodeVisitor
     {

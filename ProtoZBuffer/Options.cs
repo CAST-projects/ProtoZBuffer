@@ -2,7 +2,7 @@
 using CommandLine.Text;
 using ProtoZBuffer.Properties;
 
-namespace protozbuffer
+namespace ProtoZBuffer
 {
     class Options
     {

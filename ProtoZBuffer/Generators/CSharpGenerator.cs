@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace protozbuffer.Generators
+namespace ProtoZBuffer.Generators
 {
     class CSharpGenerator : AbstractGenerator
     {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using NUnit.Framework;
-using protozbuffer;
+using ProtoZBuffer;
 
 namespace ProtoZBuffer.Tests
 {
