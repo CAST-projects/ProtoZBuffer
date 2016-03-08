@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Net.Mime;
 
 namespace protozbuffer
 {
@@ -18,6 +20,7 @@ namespace protozbuffer
         {
             using (var textfile = File.CreateText(protoFilename))
             {
+                textfile.NewLine = Environment.NewLine;
                 Generate(p, textfile, nspace);
             }
         }
