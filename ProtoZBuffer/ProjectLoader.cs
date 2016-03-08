@@ -73,13 +73,14 @@ namespace protozbuffer
                     var indexedField = msg.field.SingleOrDefault(field => field.id == index.forField);
 
                     // convert index to repeated references 
-                    index.referenceField = new fieldType
+                    index.ReferenceField = new fieldType
                     {
                         id = index.id,
                         modifier = modifierType.repeated,
                         type = typeType.referenceMessage,
                         messageType = indexedField.messageType,
-                        name = indexedField.name
+                        name = indexedField.name,
+                        @default = indexedField.@default
                     };
 
                     if (string.IsNullOrEmpty(index.name))
@@ -88,9 +89,9 @@ namespace protozbuffer
                     }
 
                     // TODO check that only referenceMessage types are used for index on fields
-                    var referencedFieldMessageType = allMessages.SingleOrDefault(m => m.name == index.referenceField.messageType);
+                    var referencedFieldMessageType = allMessages.SingleOrDefault(m => m.name == index.ReferenceField.messageType);
                     var sortingField = referencedFieldMessageType.field.SingleOrDefault(field => field.name == index.sortBy);
-                    index.sortingField = sortingField;
+                    index.SortingField = sortingField;
                 }
             }
         }

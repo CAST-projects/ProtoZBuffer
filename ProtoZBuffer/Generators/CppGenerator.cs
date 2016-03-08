@@ -658,10 +658,10 @@ namespace protozbuffer.Generators
         protected override void GenerateClassIndex(messageType message, indexType index)
         {
             // indexes are build at build time
-            var field = index.referenceField;
+            var field = index.ReferenceField;
             var fieldType = FieldType(field);
-            var sortByType = FieldType(index.sortingField);
-            if (index.sortingField.type == typeType.@string)
+            var sortByType = FieldType(index.SortingField);
+            if (index.SortingField.type == typeType.@string)
                 sortByType = "const " + sortByType + "&";
 
             IncludeWriter.WriteLine(
@@ -990,7 +990,7 @@ namespace protozbuffer.Generators
             {{
                 builder->add_{3}()->CopyFrom({0}->getLocalMessageDescriptor());
             }}
-", index.referenceField.name, index.referenceField.messageType, index.sortingField.name, index.name.ToLowerInvariant());
+", index.ReferenceField.name, index.ReferenceField.messageType, index.SortingField.name, index.name.ToLowerInvariant());
             }
 
             CppWriter.WriteLine(

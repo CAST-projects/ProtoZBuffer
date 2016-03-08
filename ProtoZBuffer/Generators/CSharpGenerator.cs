@@ -732,9 +732,9 @@ namespace protozbuffer.Generators
         protected override void GenerateClassIndex(messageType message, indexType index)
         {
             // indexes are build at build time
-            var field = index.referenceField;
+            var field = index.ReferenceField;
             var fieldType = FieldType(field);
-            var sortByType = FieldType(index.sortingField);
+            var sortByType = FieldType(index.SortingField);
 
             Writer.WriteLine(
 @"        /// <summary>
@@ -1053,7 +1053,7 @@ namespace protozbuffer.Generators
             {{
                 builder.Add{1}({0}.LocalMessageDescriptor);
             }}"
-                    , index.referenceField.name, index.name.Capitalize(), index.sortBy.Capitalize());
+                    , index.ReferenceField.name, index.name.Capitalize(), index.sortBy.Capitalize());
             }
 
             Writer.WriteLine(

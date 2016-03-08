@@ -58,10 +58,10 @@ namespace protozbuffer
 
         public void Visit(indexType node)
         {
-            Debug.Assert(node.referenceField != null);
+            Debug.Assert(node.ReferenceField != null);
 
-            _strm.WriteLine("  //{0}", FormatIndex(node, node.referenceField.messageType + "Header"));
-            _strm.WriteLine("    {0}", FormatIndex(node, ProtoTypeString(node.referenceField)));
+            _strm.WriteLine("  //{0}", FormatIndex(node, node.ReferenceField.messageType + "Header"));
+            _strm.WriteLine("    {0}", FormatIndex(node, ProtoTypeString(node.ReferenceField)));
         }
 
         private static string ProtoTypeString(fieldType node)
@@ -82,11 +82,11 @@ namespace protozbuffer
         private static string FormatIndex(indexType node, string type)
         {
             var val = string.Format("{0} {1} {2}= {3}{4};"
-                , node.referenceField.modifier
+                , node.ReferenceField.modifier
                 , type
                 , node.name
-                , node.referenceField.id
-                , (node.referenceField.@default != null) ? string.Format(" [default={0}]", node.referenceField.@default) : "");
+                , node.ReferenceField.id
+                , (node.ReferenceField.@default != null) ? string.Format(" [default={0}]", node.ReferenceField.@default) : "");
             return val;
         }
 
