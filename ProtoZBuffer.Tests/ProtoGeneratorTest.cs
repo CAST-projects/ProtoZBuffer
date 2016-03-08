@@ -4,6 +4,13 @@ using protozbuffer;
 
 namespace ProtoZBuffer.Tests
 {
+    internal static class StringExtensions
+    {
+        public static string RemoveCarriageReturn(this string str)
+        {
+            return str.Replace("\r", "");
+        }
+    }
     [TestFixture]
     class ProtoGeneratorTest
     {
@@ -35,7 +42,7 @@ message LocalMessageDescriptor
 ";
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result.RemoveCarriageReturn()));
         }
 
         [Test]
@@ -63,7 +70,7 @@ message LocalMessageDescriptor
 ";
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result.RemoveCarriageReturn()));
         }
 
         [Test]
@@ -101,7 +108,7 @@ message LocalMessageDescriptor
 ";
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result.RemoveCarriageReturn()));
         }
 
         [Test]
@@ -142,7 +149,45 @@ message LocalMessageDescriptor
             Assert.That(foo, Is.Not.Null);
             var writer = new StringWriter();
             ProtoGenerator.Generate(foo, writer, "bar");
-            Assert.That(writer.ToString(), Is.EqualTo(result));
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result.RemoveCarriageReturn()));
+        }
+
+        [Test]
+        public void NestedMessage()
+        {
+            var foo = ProtozbuffLoader.Load(new StringReader(@"<?xml version=""1.0"" encoding=""utf-8"" ?>
+<protozbuff xmlns=""http://tempuri.org/protoZ.xsd"">
+  <message name=""Folder"" description=""Document definition"">
+    <field id=""1"" name=""name"" type=""nestedMessage"" messageType=""File""
+           description=""Folder Name."" modifier=""required"" />
+  </message>
+  <message name=""File"" description=""File desc"">
+     <field id=""2"" name=""filename"" type=""string"" modifier=""required"" />
+  </message>
+</protozbuff>"));
+
+            const string result = @"package bar;
+
+message FolderHeader
+{
+  //required FileHeader name= 1;
+    required uint32 name= 1;
+}
+
+message FileHeader
+{
+    required string filename= 2;
+}
+
+message LocalMessageDescriptor
+{
+    repeated int32 coordinate = 1 [packed=true];
+}
+";
+            Assert.That(foo, Is.Not.Null);
+            var writer = new StringWriter();
+            ProtoGenerator.Generate(foo, writer, "bar");
+            Assert.That(writer.ToString().RemoveCarriageReturn(), Is.EqualTo(result.RemoveCarriageReturn()));
         }
     }
 }

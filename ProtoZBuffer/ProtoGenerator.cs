@@ -20,7 +20,6 @@ namespace protozbuffer
         {
             using (var textfile = File.CreateText(protoFilename))
             {
-                textfile.NewLine = Environment.NewLine;
                 Generate(p, textfile, nspace);
             }
         }
