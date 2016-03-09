@@ -91,9 +91,9 @@ namespace ProtoZBuffer.Core.Generators
         protected void CopyResourceToOutput(Assembly assembly, string resource, string outputFolder, string nspace)
         {
             Directory.CreateDirectory(outputFolder);
-            
+
             using (var output = GetStream(outputFolder, resource, nspace))
-            using (var input = assembly.GetManifestResourceStream("ProtoZBuffer.Core.res." + ResourceFolder + "." + resource))
+            using (var input = assembly.GetManifestResourceStream(assembly.GetName().Name + ".res." + ResourceFolder + "." + resource))
             {
                 if (input == null)
                 {
