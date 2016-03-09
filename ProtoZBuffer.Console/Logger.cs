@@ -1,7 +1,8 @@
 ﻿using log4net;
+
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace ProtoZBuffer
+namespace ProtoZBuffer.Console
 {
     static class Logger
     {

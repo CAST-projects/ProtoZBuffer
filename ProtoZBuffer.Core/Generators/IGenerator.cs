@@ -1,6 +1,6 @@
-﻿namespace ProtoZBuffer.Generators
+﻿namespace ProtoZBuffer.Core.Generators
 {
-    interface IGenerator
+    public interface IGenerator
     {
         ///<summary>Entry point</summary> 
         bool Launch();

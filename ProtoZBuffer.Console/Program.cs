@@ -1,4 +1,4 @@
-﻿namespace ProtoZBuffer
+﻿namespace ProtoZBuffer.Console
 {
     static class Program
     {

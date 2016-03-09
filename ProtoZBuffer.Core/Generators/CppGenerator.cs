@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 
-namespace ProtoZBuffer.Generators
+namespace ProtoZBuffer.Core.Generators
 {
-    class CppGenerator : AbstractGenerator
+    public class CppGenerator : AbstractGenerator
     {
         protected override string NamespaceSeparator
         {

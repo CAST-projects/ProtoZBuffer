@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ProtoZBuffer.Generators
+namespace ProtoZBuffer.Core.Generators
 {
-    abstract class AbstractGenerator : IGenerator
+    public abstract class AbstractGenerator : IGenerator
     {
         protected AbstractGenerator()
         {

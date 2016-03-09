@@ -1,8 +1,8 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using ProtoZBuffer.Properties;
+using ProtoZBuffer.Console.Properties;
 
-namespace ProtoZBuffer
+namespace ProtoZBuffer.Console
 {
     class Options
     {

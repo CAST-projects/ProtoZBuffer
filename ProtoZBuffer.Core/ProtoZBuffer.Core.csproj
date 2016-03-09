@@ -1,47 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C2A6176C-2E2D-4D75-8D5A-F8842448F30B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6244992B-A86A-4856-B6AD-1FB0588FE88B}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProtoZBuffer</RootNamespace>
-    <AssemblyName>ProtoZBuffer</AssemblyName>
+    <RootNamespace>ProtoZBuffer.Core</RootNamespace>
+    <AssemblyName>ProtoZBuffer.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)\bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)\$(ProjectName)\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)\$(ProjectName)\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,11 +42,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineExecuter.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="Generators\AbstractGenerator.cs" />
     <Compile Include="Generators\CppGenerator.cs" />
@@ -61,27 +52,58 @@
     <Compile Include="Generators\IGenerator.cs" />
     <Compile Include="Generators\JavaGenerator.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="ProjectLoader.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtoGenerator.cs" />
     <Compile Include="protozbuff.cs">
       <DependentUpon>protozbuff.xsd</DependentUpon>
     </Compile>
     <Compile Include="protozbuffVisitors.cs" />
+    <EmbeddedResource Include="res\csharp\WeakStretchable.cs" />
+    <EmbeddedResource Include="res\csharp\Stretchable.cs" />
+    <EmbeddedResource Include="res\csharp\IStretchable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="protobuf-generator\ProtoGen.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="protozbuff.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProtoZBuffer.nuspec" />
+    <EmbeddedResource Include="res\cpp\ArrayList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\cpp\Util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\cpp\Util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\ByteArrayIOStream.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\Extensions.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\FileIOStream.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IFilter.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IFormat.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IIOStream.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IMapper.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IProduct.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\IStretchableArray.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\LazyArray.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\java\StretchableArray.java" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="protobuf-generator\Google.ProtocolBuffers.dll">
@@ -98,27 +120,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="res\csharp\IStretchable.cs" />
-    <EmbeddedResource Include="res\csharp\WeakStretchable.cs" />
-    <EmbeddedResource Include="res\csharp\Stretchable.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="res\java\Extensions.java" />
-    <EmbeddedResource Include="res\java\IFilter.java" />
-    <EmbeddedResource Include="res\java\IFormat.java" />
-    <EmbeddedResource Include="res\java\IMapper.java" />
-    <EmbeddedResource Include="res\java\IProduct.java" />
-    <EmbeddedResource Include="res\java\IStretchableArray.java" />
-    <EmbeddedResource Include="res\java\LazyArray.java" />
-    <EmbeddedResource Include="res\java\StretchableArray.java" />
-    <EmbeddedResource Include="res\java\IIOStream.java" />
-    <EmbeddedResource Include="res\java\ByteArrayIOStream.java" />
-    <EmbeddedResource Include="res\java\FileIOStream.java" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="res\cpp\ArrayList.h" />
-    <EmbeddedResource Include="res\cpp\Util.cpp" />
-    <EmbeddedResource Include="res\cpp\Util.h" />
+    <None Include="packages.config" />
+    <None Include="protobuf-generator\ProtoGen.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="protozbuff.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -128,14 +136,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir).nuget\NuGet.exe pack $(ProjectDir)$(ProjectName).nuspec
-</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

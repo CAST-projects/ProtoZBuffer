@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace ProtoZBuffer
+namespace ProtoZBuffer.Core
 {
-    static internal class ProtozbuffLoader  
+    static public class ProtozbuffLoader  
     {
         /// <summary>
         /// Load an xml file from <paramref name="p"/> as an instance of protozbuff format
