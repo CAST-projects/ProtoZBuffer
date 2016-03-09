@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +29,14 @@ namespace ProtoZBuffer.Core.Generators
         ///<summary>Path to the input protoz file</summary> 
         public string ProtoZFile { get; set; }
 
+        protected string ProtocBinary
+        {
+            get
+            {
+                return Path.Combine(ProtoGenFolder, "protoc.exe");
+            }
+        }
+
         ///<summary>Path to the protoc executable (or protogen.exe for C#)</summary> 
         public string ProtoGenFolder
         {
@@ -43,6 +52,7 @@ namespace ProtoZBuffer.Core.Generators
                 return _myProtoGenFolder;
             }
         }
+
         private string _myProtoGenFolder;
 
         ///<summary>Base name for the generated .proto file, and the .lazy file</summary> 
@@ -70,7 +80,7 @@ namespace ProtoZBuffer.Core.Generators
         protected abstract void InstallResources();
 
         ///<summary>Command line used to launch protoc.exe, with its options</summary> 
-        protected abstract string ProtocCommandLine { get; }
+        protected abstract string ProtocArguments { get; }
 
         ///<summary>Entry point</summary> 
         public bool Launch()
@@ -114,28 +124,30 @@ namespace ProtoZBuffer.Core.Generators
         ///<summary>Runs protoc.exe on the generated .proto file</summary> 
         private void CallProtocExe()
         {
-            var commandLine = ProtocCommandLine;
-            Logger.Info(commandLine);
-
-            var process = new System.Diagnostics.Process
+            var psi = new ProcessStartInfo(ProtocBinary)
             {
-                StartInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
-                    FileName = "cmd.exe",
-                    Arguments = "/C " + commandLine,
-                    UseShellExecute = false,
-                    RedirectStandardError = true
-                }
+                WorkingDirectory = Environment.CurrentDirectory,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                Arguments = ProtocArguments
             };
+
+            var process = Process.Start(psi);
+
+            if (process == null)
+            {
+                Logger.Fatal("Unable to create process to generate files");
+                return;
+            }
 
             process.Start();
             process.WaitForExit();
 
-            if (process.ExitCode != 0)
-            {
-                throw new Exception("Failed: " + process.StandardError.ReadToEnd());
-            }
+            if (process.ExitCode == 0) return;
+            Logger.Fatal(process.StandardOutput.ReadToEnd());
+            throw new Exception("Failed: " + process.StandardError.ReadToEnd());
         }
 
         protected virtual bool GenerateLazyImplementation(protozbuffType p)

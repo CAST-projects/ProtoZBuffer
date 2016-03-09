@@ -107,17 +107,14 @@
     <Content Include="protobuf-generator\Google.ProtocolBuffers.Serialization.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="protobuf-generator\protoc.exe">
+    <Content Include="protobuf-generator\protoc-gen-cs.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="protobuf-generator\ProtoGen.exe">
+    <Content Include="protobuf-generator\protoc.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="protobuf-generator\ProtoGen.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="protozbuff.xsd">
       <SubType>Designer</SubType>
     </None>
