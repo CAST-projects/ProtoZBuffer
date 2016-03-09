@@ -51,10 +51,10 @@
         }
 
         // reference field that will be generated in the .proto file
-        public fieldType referenceField { get; set; }
+        public fieldType ReferenceField { get; set; }
 
         // type of the field we want to sort by
-        public fieldType sortingField { get; set; }
+        public fieldType SortingField { get; set; }
     }
 
     // ReSharper disable once InconsistentNaming

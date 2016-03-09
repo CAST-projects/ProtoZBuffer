@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using protozbuffer;
 
-namespace ProtoZBuffer.tests
+namespace ProtoZBuffer.Tests
 {
     [TestFixture]
     public class ProtozbuffLoarderTest

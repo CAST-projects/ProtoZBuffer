@@ -699,9 +699,9 @@ public abstract class Abstract{0} implements ProtoOrBuilder
         protected override void GenerateClassIndex(messageType message, indexType index)
         {
             // indexes are build at build time
-            var field = index.referenceField;
+            var field = index.ReferenceField;
             var fieldType = FieldType(field);
-            var sortByType = FieldType(index.sortingField);
+            var sortByType = FieldType(index.SortingField);
 
             Writer.WriteLine(
 @"        // Note: indexes are built during the build process, and aren't available before
@@ -1044,7 +1044,7 @@ public abstract class Abstract{0} implements ProtoOrBuilder
         {{
             builder.add{2}(l{0}.getLocalMessageDescriptor());
         }}"
-                    , index.referenceField.name, index.referenceField.name.Capitalize(), index.name.Capitalize(), index.sortBy.Capitalize());
+                    , index.ReferenceField.name, index.ReferenceField.name.Capitalize(), index.name.Capitalize(), index.sortBy.Capitalize());
             }
 
             Writer.WriteLine(
