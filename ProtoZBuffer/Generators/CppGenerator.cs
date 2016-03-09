@@ -967,7 +967,7 @@ namespace ProtoZBuffer.Generators
                 {
                     CppWriter.WriteLine(
 @"
-            auto* tmp_{0} = {0}();
+            auto* tmp_{0} = m_{0}.get();
             if (tmp_{0} != nullptr) 
             {{ 
                 auto oldPos = tmp_{0}->positionInContent();

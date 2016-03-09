@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <memory>
+#include <utility>
 #include <vector>
 
 %NAMESPACE_BEGIN%
@@ -8,7 +10,7 @@ class ArrayList
 {
 public:
 
-    T* get(std::size_t index)
+    T* get(std::size_t index) const
     {
         return index < size() ? m_map[index].get() : nullptr;
     }
