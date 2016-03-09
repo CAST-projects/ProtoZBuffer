@@ -2,9 +2,9 @@
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace ProtoZBuffer.Console
+namespace ProtoZBuffer.Utils
 {
-    static class Logger
+    public static class Logger
     {
         private static ILog Log { get; set; }
 

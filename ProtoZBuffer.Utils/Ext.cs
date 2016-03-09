@@ -1,4 +1,4 @@
-﻿namespace ProtoZBuffer.Core
+﻿namespace ProtoZBuffer.Utils
 {
     public static class Ext
     {

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using ProtoZBuffer.Core.Generators;
+using ProtoZBuffer.Utils;
 
 namespace ProtoZBuffer.Console
 {
