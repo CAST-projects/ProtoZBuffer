@@ -35,6 +35,12 @@ namespace ProtoZBuffer.Core.Generators
         private TextWriter IncludeWriter { get; set; }
         private TextWriter CppWriter { get; set; }
 
+        protected override bool HasPluginExecutable()
+        {
+            // inside protoc.exe
+            return true;
+        }
+
         protected override void InstallResources()
         {
             SafeDirectoryCreation(CppFolder);

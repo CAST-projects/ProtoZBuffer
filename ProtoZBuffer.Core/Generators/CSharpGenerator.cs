@@ -33,6 +33,16 @@ namespace ProtoZBuffer.Core.Generators
 
         private static string ProtoGenBinary { get { return "protoc-gen-cs.exe"; } }
 
+        protected override bool HasPluginExecutable()
+        {
+            var exist = File.Exists(Path.Combine(ProtoGenFolder, ProtoGenBinary));
+            if (!exist)
+            {
+                Logger.Fatal("Plugin \"" + Path.Combine(ProtoGenFolder, ProtoGenBinary) + "\" is missing.");
+            }
+            return exist;
+        }
+
         protected override string ProtocArguments
         {
             get

@@ -82,9 +82,18 @@ namespace ProtoZBuffer.Core.Generators
         ///<summary>Command line used to launch protoc.exe, with its options</summary> 
         protected abstract string ProtocArguments { get; }
 
+        protected abstract bool HasPluginExecutable();
+
+        private bool CheckBinaries()
+        {
+            return HasPluginExecutable();
+        }
+
         ///<summary>Entry point</summary> 
         public bool Launch()
         {
+            if (! CheckBinaries()) return false;
+
             InstallResources();
 
             var p = ProtozbuffLoader.Load(ProtoZFile);

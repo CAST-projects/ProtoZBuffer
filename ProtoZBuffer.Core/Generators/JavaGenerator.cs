@@ -42,6 +42,12 @@ namespace ProtoZBuffer.Core.Generators
             CopyResourceToOutput(assembly, "IFormat.java", OutputFolder, ResourceNamespace);
         }
 
+        protected override bool HasPluginExecutable()
+        {
+            // inside protoc.exe
+            return true;
+        }
+
         protected override string ProtocArguments
         {
             get
