@@ -93,7 +93,7 @@ namespace ProtoZBuffer.Core.Generators
             Directory.CreateDirectory(outputFolder);
             
             using (var output = GetStream(outputFolder, resource, nspace))
-            using (var input = assembly.GetManifestResourceStream("ProtoZBuffer.res." + ResourceFolder + "." + resource))
+            using (var input = assembly.GetManifestResourceStream("ProtoZBuffer.Core.res." + ResourceFolder + "." + resource))
             {
                 if (input == null)
                 {
