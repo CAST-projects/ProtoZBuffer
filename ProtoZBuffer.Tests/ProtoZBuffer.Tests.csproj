@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProtoZBuffer\ProtoZBuffer.csproj">
-      <Project>{c2a6176c-2e2d-4d75-8d5a-f8842448f30b}</Project>
-      <Name>ProtoZBuffer</Name>
+    <ProjectReference Include="..\ProtoZBuffer.Core\ProtoZBuffer.Core.csproj">
+      <Project>{6244992b-a86a-4856-b6ad-1fb0588fe88b}</Project>
+      <Name>ProtoZBuffer.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

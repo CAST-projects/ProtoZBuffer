@@ -6,7 +6,7 @@ build:
   verbosity: minimal
 after_test:
  - nuget.exe install OpenCover -ExcludeVersion
- - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[ProtoZBuffer]*   -[ProtoZBuffer]ProtoZBuffer.Properties.* -[*Tests]*" -target:"nunit3-console.exe" -targetargs:"ProtoZBuffer.Tests\bin\release\ProtoZBuffer.Tests.dll" -returntargetcode -hideskipped:All -output:coverage.xml
+ - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[ProtoZBuffer*]*   -[ProtoZBuffer*]ProtoZBuffer.Properties.* -[*Tests]*" -target:"nunit3-console.exe" -targetargs:"ProtoZBuffer.Tests\bin\release\ProtoZBuffer.Tests.dll" -returntargetcode -hideskipped:All -output:coverage.xml
  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
  - pip install codecov
  - codecov -f "coverage.xml"

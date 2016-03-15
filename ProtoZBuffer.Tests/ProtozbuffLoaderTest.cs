@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using NUnit.Framework;
-using protozbuffer;
+using ProtoZBuffer;
+using ProtoZBuffer.Core;
 
 namespace ProtoZBuffer.Tests
 {
@@ -40,7 +41,7 @@ namespace ProtoZBuffer.Tests
   <message name=""Folder"" description=""Document definition"">
     <field id=""1"" modifier=""required"" name=""name"" type=""string""
            description=""Folder Name."" />
-    <field id=""2"" modifier=""repeated"" name=""files"" messageType=""File""
+    <field id=""2"" modifier=""repeated"" name=""files"" type=""referenceMessage"" messageType=""File""
            description=""Files"" />
     <field id=""3"" modifier=""repeated"" name=""folders"" type=""nestedMessage"" messageType=""Folder""
            description=""Folders embedded"" />
