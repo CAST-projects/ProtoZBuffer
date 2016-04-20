@@ -131,7 +131,7 @@ namespace ProtoZBuffer.Core.Generators
             IncludeWriter.WriteLine();
             IncludeWriter.WriteLine(GetNamespaceBegin(GeneratedNamespace));
 
-            CppWriter.WriteLine("#include <stdafx.h>");
+            CppWriter.WriteLine(@"#include ""stdafx.h""");
             CppWriter.WriteLine("#include <sstream>");
             CppWriter.WriteLine("#include <{0}/{1}.h>", GetNamespacePathSlash(GeneratedNamespace), baseName);
             CppWriter.WriteLine("#include <{0}/Util.h>", GetNamespacePathSlash(ResourceNamespace));
@@ -1240,7 +1240,7 @@ GetNamespaceEnd(Namespace));            // 5
             using (var strm = GetStreamFromPath(filePathCpp))
             {
                 strm.WriteLine(
-@"#include <stdafx.h>
+@"#include ""stdafx.h""
 #include ""include/{0}/{1}.h"""
 , GetNamespacePathSlash(Namespace),  // 0
 message.name.Capitalize()            // 1

@@ -19,7 +19,7 @@ public:
     {
         // pad with nullptrs so that m_map.size() >= index + 1 
         if (index >= m_map.size())
-            m_map.resize(index + 1 - m_map.size());
+            m_map.resize(index + 1);
         m_map[index] = std::move(value);
     }
 
