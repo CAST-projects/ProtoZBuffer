@@ -1231,8 +1231,12 @@ namespace ProtoZBuffer.Core.Generators
             return Parent.Equals(that.Parent);
         }}
 
+        private bool _hasHashCode = false;
+        private int _hashCode;
+
         public override int GetHashCode()
         {{
+            if (_hasHashCode) return _hashCode;
             //Fowler Noll Vo hash algorithm, FNV-1a 32bit
             unchecked
             {{
@@ -1243,7 +1247,8 @@ namespace ProtoZBuffer.Core.Generators
                     hash = prime * (hash ^ Parent.GetHashCode());
                 hash = prime * (hash ^ FieldId);
                 hash = prime * (hash ^ Index);
-
+                _hasHashCode = true;
+                _hashCode = hash;
                 return hash;
             }}   
         }}
@@ -1285,8 +1290,12 @@ namespace ProtoZBuffer.Core.Generators
 @"
         }
 
+        
+        private bool _hasHashCode = false;
+        private int _hashCode;
         public override int GetHashCode()
         {
+            if (_hasHashCode) return _hashCode;
             unchecked
             {
                 {
@@ -1300,6 +1309,8 @@ namespace ProtoZBuffer.Core.Generators
             }
             Writer.WriteLine(
 @"
+                    _hasHashCode = true;
+                    _hashCode = hash;
                     return hash;
                 }
             }
