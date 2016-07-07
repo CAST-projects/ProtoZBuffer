@@ -26,9 +26,9 @@ namespace ProtoZBuffer.Core.Generators
             SafeDirectoryCreation(OutputFolder);
 
             var assembly = GetType().Assembly;
-            CopyResourceToOutput(assembly, "IStretchable.cs", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "Stretchable.cs", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "WeakStretchable.cs", OutputFolder, ResourceNamespace);
+            CopyResourceToOutput(assembly,"IStretchable.cs", OutputFolder, ResourceNamespace, ResourceNamespace + '.');
+            CopyResourceToOutput(assembly,"Stretchable.cs", OutputFolder, ResourceNamespace, ResourceNamespace + '.');
+            CopyResourceToOutput(assembly,"WeakStretchable.cs", OutputFolder, ResourceNamespace, ResourceNamespace + '.');
         }
 
         protected override string ProtocCommandLine

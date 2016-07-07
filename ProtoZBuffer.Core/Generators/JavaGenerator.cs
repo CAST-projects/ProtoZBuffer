@@ -29,17 +29,17 @@ namespace ProtoZBuffer.Core.Generators
             SafeDirectoryCreation(OutputFolder);
 
             var assembly = GetType().Assembly;
-            CopyResourceToOutput(assembly, "Extensions.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IIOStream.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "ByteArrayIOStream.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "FileIOStream.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IStretchableArray.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "StretchableArray.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "LazyArray.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IFilter.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IProduct.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IMapper.java", OutputFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "IFormat.java", OutputFolder, ResourceNamespace);
+            CopyResourceToOutput(assembly, "Extensions.java", OutputFolder, ResourceNamespace, ""); // TODO: Do we need a prefix?
+            CopyResourceToOutput(assembly, "IIOStream.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "ByteArrayIOStream.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "FileIOStream.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "IStretchableArray.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "StretchableArray.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "LazyArray.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "IFilter.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "IProduct.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "IMapper.java", OutputFolder, ResourceNamespace, "");
+            CopyResourceToOutput(assembly, "IFormat.java", OutputFolder, ResourceNamespace, "");
         }
 
         protected override string ProtocCommandLine

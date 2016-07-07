@@ -117,7 +117,6 @@ namespace ProtoZBuffer.Core.Generators
 #include <string>
 #include ""{1}.pb.h""
 #include ""{0}/ArrayList.h""
-#include ""{0}/Util.h""
 ", GetNamespacePathSlash(ResourceNamespace), DocumentName);
 
             // forward declaration for final client classes
@@ -133,7 +132,7 @@ namespace ProtoZBuffer.Core.Generators
             CppWriter.WriteLine(@"#include ""stdafx.h""");
             CppWriter.WriteLine("#include <sstream>");
             CppWriter.WriteLine("#include <{0}/{1}.h>", GetNamespacePathSlash(GeneratedNamespace), baseName);
-            CppWriter.WriteLine("#include <{0}/Util.h>", GetNamespacePathSlash(ResourceNamespace));
+            CppWriter.WriteLine("#include <{0}/Util.inc>", GetNamespacePathSlash(ResourceNamespace));
             foreach (var message in p.Items.OfType<messageType>())
             {
                 CppWriter.WriteLine(@"#include <{0}/{1}.h>", GetNamespacePathSlash(Namespace), message.name.Capitalize());
@@ -1302,16 +1301,6 @@ GetNamespaceEnd(Namespace));            // 2);
                 default:
                     return node.type.ToString();
             }
-        }
-
-        // we only take namespaces into account for headers
-        protected override string GetFilePath(string folder, string name, string nspace)
-        {
-            if (Path.GetExtension(name) == ".h")
-                return base.GetFilePath(folder, name, nspace);
-
-            SafeDirectoryCreation(folder);
-            return Path.Combine(folder, name);
         }
     }
 }
