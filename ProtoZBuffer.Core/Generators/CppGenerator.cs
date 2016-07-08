@@ -41,9 +41,8 @@ namespace ProtoZBuffer.Core.Generators
             SafeDirectoryCreation(IncludesFolder);
 
             var assembly = GetType().Assembly;
-            CopyResourceToOutput(assembly, "ArrayList.h", IncludesFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "Util.h", IncludesFolder, ResourceNamespace);
-            CopyResourceToOutput(assembly, "Util.cpp", CppFolder, ResourceNamespace);
+            CopyResourceToOutput(assembly, "ArrayList.h", IncludesFolder, ResourceNamespace, ""); // No need for file prefix, vcproj are perfectly able to handle files of the same name in different folders
+            CopyResourceToOutput(assembly, "Util.inc", IncludesFolder, ResourceNamespace, "");
         }
 
         protected override string ProtocCommandLine
@@ -118,7 +117,6 @@ namespace ProtoZBuffer.Core.Generators
 #include <string>
 #include ""{1}.pb.h""
 #include ""{0}/ArrayList.h""
-#include ""{0}/Util.h""
 ", GetNamespacePathSlash(ResourceNamespace), DocumentName);
 
             // forward declaration for final client classes
@@ -134,7 +132,7 @@ namespace ProtoZBuffer.Core.Generators
             CppWriter.WriteLine(@"#include ""stdafx.h""");
             CppWriter.WriteLine("#include <sstream>");
             CppWriter.WriteLine("#include <{0}/{1}.h>", GetNamespacePathSlash(GeneratedNamespace), baseName);
-            CppWriter.WriteLine("#include <{0}/Util.h>", GetNamespacePathSlash(ResourceNamespace));
+            CppWriter.WriteLine("#include <{0}/Util.inc>", GetNamespacePathSlash(ResourceNamespace));
             foreach (var message in p.Items.OfType<messageType>())
             {
                 CppWriter.WriteLine(@"#include <{0}/{1}.h>", GetNamespacePathSlash(Namespace), message.name.Capitalize());
@@ -360,7 +358,10 @@ namespace ProtoZBuffer.Core.Generators
             var fieldType = fieldTypeForList;
             if (field.type == typeType.@string)
                 fieldType = "const " + fieldType + "&";
-
+            // In C++, a repeated enum is stored as a RepeatedField<int>
+            var underlyingType = field.type == typeType.@enum ?
+                "int" :
+                fieldTypeForList;
             if (field.modifier == modifierType.repeated)
             {
                 IncludeWriter.WriteLine(
@@ -382,17 +383,21 @@ namespace ProtoZBuffer.Core.Generators
         void Abstract{4}::remove{1}({3} item)
         {{
             assert((""Can't modify an already built object!"", !isBuilt()));
-            auto kepts = std::vector<{5}>();
-            auto& originals = m_header.{2}();
-            std::copy_if(originals.begin(), originals.end(), std::back_inserter(kepts), [&item]({3} check) {{ return check != item; }});
-            m_header.clear_{2}();
-            std::for_each(kepts.begin(), kepts.end(), [this]({3} item) {{ add{1}(item); }});
+            auto vals = m_header.mutable_{2}();
+            auto newEnd = std::remove_if(vals->begin(), vals->end(), [&item]({6} check) {{ return check != item; }});
+            vals->Truncate(newEnd - vals->begin());
         }}
 
         std::vector<{5}> Abstract{4}::{0}List()
         {{
-            auto& originals = m_header.{2}();
-            return std::vector<{5}>(originals.begin(), originals.end());
+            auto count = {0}Count();
+            auto list = std::vector<{3}>();
+            list.reserve(count);
+            for (auto i = 0; i < count; ++i)
+            {{
+                list.push_back(get{1}(i));
+            }}
+            return list;
         }}
 
         {3} Abstract{4}::get{1}(int index)
@@ -405,7 +410,7 @@ namespace ProtoZBuffer.Core.Generators
             return m_header.{2}_size();
         }}
 "
-                    , field.name, field.name.Capitalize(), field.name.ToLowerInvariant(), fieldType, message.name, fieldTypeForList);
+                    , field.name, field.name.Capitalize(), field.name.ToLowerInvariant(), fieldType, message.name, fieldTypeForList, underlyingType);
                 return;
             }
 
@@ -450,14 +455,12 @@ namespace ProtoZBuffer.Core.Generators
         void Abstract{4}::remove{1}({3}& item)
         {{
             assert((""Can't modify an already built object!"", !isBuilt()));
-            auto kepts = std::vector<LocalMessageDescriptor>();
-            auto& originals = m_header.{2}();
-            std::copy_if(originals.begin(), originals.end(), std::back_inserter(kepts), [this, &item](const LocalMessageDescriptor& check) 
+            auto vals = m_header.mutable_{2}();
+            auto newEnd = std::remove_if(vals->begin(), vals->end(), [this, &item](const LocalMessageDescriptor& check) 
             {{ 
-                return getRoot()->decode(check) != &item; 
+                return getRoot()->decode(check) == &item; 
             }});
-            m_header.clear_{2}();
-            std::for_each(kepts.begin(), kepts.end(), [this](LocalMessageDescriptor& descriptor) {{ m_header.add_{2}()->CopyFrom(descriptor); }});
+            vals->DeleteSubrange(newEnd - vals->begin(), vals->end() - newEnd);
         }}
 
         std::vector<{3}*> Abstract{4}::{0}List()
@@ -1298,16 +1301,6 @@ GetNamespaceEnd(Namespace));            // 2);
                 default:
                     return node.type.ToString();
             }
-        }
-
-        // we only take namespaces into account for headers
-        protected override string GetFilePath(string folder, string name, string nspace)
-        {
-            if (Path.GetExtension(name) == ".h")
-                return base.GetFilePath(folder, name, nspace);
-
-            SafeDirectoryCreation(folder);
-            return Path.Combine(folder, name);
         }
     }
 }

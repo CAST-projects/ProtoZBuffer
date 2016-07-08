@@ -62,10 +62,7 @@
     <EmbeddedResource Include="res\cpp\ArrayList.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="res\cpp\Util.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="res\cpp\Util.h" />
+    <EmbeddedResource Include="res\cpp\Util.inc" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="res\java\ByteArrayIOStream.java" />

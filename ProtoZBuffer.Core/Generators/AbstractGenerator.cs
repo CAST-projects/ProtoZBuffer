@@ -88,11 +88,19 @@ namespace ProtoZBuffer.Core.Generators
             return GenerateLazyImplementation(p);
         }
 
-        protected void CopyResourceToOutput(Assembly assembly, string resource, string outputFolder, string nspace)
+        /// <summary>
+        /// Copy a resource file to the output folder
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="resource">Name of the resource. It will become part of the resource file name</param>
+        /// <param name="outputFolder"></param>
+        /// <param name="nspace">Namespace for the resource content</param>
+        /// <param name="filePrefix">Some languages has issues handling files with the same name in different folders, hence to possibility to specify a prefix</param>
+        protected void CopyResourceToOutput(Assembly assembly, string resource, string outputFolder, string nspace, string filePrefix)
         {
             Directory.CreateDirectory(outputFolder);
 
-            using (var output = GetStream(outputFolder, resource, nspace))
+            using (var output = GetStream(outputFolder, filePrefix + resource, nspace))
             using (var input = assembly.GetManifestResourceStream(assembly.GetName().Name + ".res." + ResourceFolder + "." + resource))
             {
                 if (input == null)
