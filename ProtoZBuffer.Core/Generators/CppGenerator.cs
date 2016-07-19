@@ -933,7 +933,8 @@ namespace ProtoZBuffer.Core.Generators
             {{
                 headerCopy = std::make_unique<{0}Header>(m_header);
                 builder = headerCopy.get();
-            }}", message.name);
+            }}
+            ", message.name);
 
             foreach (var field in message.field.Where(_ => _.type == typeType.nestedMessage))
             {
@@ -967,11 +968,11 @@ namespace ProtoZBuffer.Core.Generators
             }}"
                         , field.name, field.name.ToLowerInvariant());
                 }
-                else
+                else if (field.modifier == modifierType.optional)
                 {
                     CppWriter.WriteLine(
 @"
-            auto* tmp_{0} = m_{0}.get();
+            auto* tmp_{0} = {0}();
             if (tmp_{0} != nullptr) 
             {{ 
                 auto oldPos = tmp_{0}->positionInContent();
@@ -981,6 +982,22 @@ namespace ProtoZBuffer.Core.Generators
                     tmp_{0}->setPositionInContent(oldPos);
             }}"
                         , field.name, field.name.ToLowerInvariant());
+                }
+                else
+                {
+                    CppWriter.WriteLine(
+@"
+            auto* tmp_{0} = &{0}();
+            if (tmp_{0} != nullptr) 
+            {{ 
+                auto oldPos = tmp_{0}->positionInContent();
+                tmp_{0}->build(content, saveToOutput); 
+                builder->set_{1}(tmp_{0}->positionInContent());
+                if (alreadyBuilt)
+                    tmp_{0}->setPositionInContent(oldPos);
+            }}"
+                        , field.name, field.name.ToLowerInvariant());
+
                 }
             }
 

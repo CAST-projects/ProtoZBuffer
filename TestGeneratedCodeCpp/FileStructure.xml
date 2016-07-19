@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<protozbuff xmlns="http://tempuri.org/protoZ.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="..\ProtoZBuffer.Core\protozbuff.xsd">
+  <!-- Dummy comment to force regeneration (add a dot): . -->
+  <message name="Document" description="Root node of the document. Used to unit test ProtoZBuffer">
+    <field id="1" modifier="repeated" name="data" type="nestedMessage" description="The data itself" messageType="Data" />
+  </message>
+
+  <message name="Data" description="Data stored in the document. This fake data will contain many data types for testing purposes">
+    <field id="1" modifier="required" name="identification" type="nestedMessage" messageType="Identity" />
+    <field id="2" modifier="optional" name="secretIdentity" type="nestedMessage" messageType="Identity" />
+  </message>
+
+  <message name="Identity">
+    <field id="1" modifier="required" name="firstName" type="string" />
+    <field id="2" modifier="optional" name="birthYear" type="int32" />
+  </message>
+  
+</protozbuff>
+
+
