@@ -9,7 +9,30 @@
 using namespace std;
 namespace fs = std::tr2::sys;
 
+void checkData(fs::wpath const &outputFile)
+{
+    auto ifs = std::make_shared<std::fstream>(outputFile, std::ios_base::in | std::ios_base::binary);
+    auto resultDoc = FileStructure::Document::ParseFrom(ifs);
 
+    REQUIRE(resultDoc->dataCount() == 3);
+
+    auto &d1 = resultDoc->getData(0);
+    REQUIRE(d1.identification().firstName() == "UniverseAndEverything");
+    REQUIRE(!d1.identification().hasBirthYear());
+    REQUIRE(!d1.hasSecretIdentity());
+
+    auto &d2 = resultDoc->getData(1);
+    REQUIRE(d2.identification().firstName() == "Babbage");
+    REQUIRE(d2.identification().birthYear() == 1791);
+    REQUIRE(!d2.hasSecretIdentity());
+
+    auto &d3 = resultDoc->getData(2);
+    REQUIRE(d3.identification().firstName() == "Bruce");
+    REQUIRE(d3.identification().birthYear() == 1964);
+    REQUIRE(d3.hasSecretIdentity());
+    REQUIRE(d3.secretIdentity()->firstName() == "Batman");
+    REQUIRE(d3.secretIdentity()->birthYear() == 1989);
+}
 
 TEST_CASE("NestedData")
 {
@@ -45,28 +68,7 @@ TEST_CASE("NestedData")
             REQUIRE(fs::exists(outputFile));
             REQUIRE(fs::file_size(outputFile) > 0);
         }
-        auto ifs = std::make_shared<std::fstream>(outputFile, std::ios_base::in | std::ios_base::binary);
-        resultDoc = FileStructure::Document::ParseFrom(ifs);
-        REQUIRE(resultDoc->dataCount() == 3);
-        {
-            auto &d1 = resultDoc->getData(0);
-            REQUIRE(d1.identification().firstName() == "UniverseAndEverything");
-            REQUIRE(!d1.identification().hasBirthYear());
-            REQUIRE(!d1.hasSecretIdentity());
-
-            auto &d2 = resultDoc->getData(1);
-            REQUIRE(d2.identification().firstName() == "Babbage");
-            REQUIRE(d2.identification().birthYear() == 1791);
-            REQUIRE(!d2.hasSecretIdentity());
-
-            auto &d3 = resultDoc->getData(2);
-            REQUIRE(d3.identification().firstName() == "Bruce");
-            REQUIRE(d3.identification().birthYear() == 1964);
-            REQUIRE(d3.hasSecretIdentity());
-            REQUIRE(d3.secretIdentity()->firstName() == "Batman");
-            REQUIRE(d3.secretIdentity()->birthYear() == 1989);
-
-        }
+        checkData(outputFile);
     }
     SECTION("Build, save and read")
     {
@@ -80,28 +82,7 @@ TEST_CASE("NestedData")
             REQUIRE(fs::exists(outputFile));
             REQUIRE(fs::file_size(outputFile) > 0);
         }
-        auto ifs = std::make_shared<std::fstream>(outputFile, std::ios_base::in | std::ios_base::binary);
-        resultDoc = FileStructure::Document::ParseFrom(ifs);
-        REQUIRE(resultDoc->dataCount() == 3);
-        {
-            auto &d1 = resultDoc->getData(0);
-            REQUIRE(d1.identification().firstName() == "UniverseAndEverything");
-            REQUIRE(!d1.identification().hasBirthYear());
-            REQUIRE(!d1.hasSecretIdentity());
-
-            auto &d2 = resultDoc->getData(1);
-            REQUIRE(d2.identification().firstName() == "Babbage");
-            REQUIRE(d2.identification().birthYear() == 1791);
-            REQUIRE(!d2.hasSecretIdentity());
-
-            auto &d3 = resultDoc->getData(2);
-            REQUIRE(d3.identification().firstName() == "Bruce");
-            REQUIRE(d3.identification().birthYear() == 1964);
-            REQUIRE(d3.hasSecretIdentity());
-            REQUIRE(d3.secretIdentity()->firstName() == "Batman");
-            REQUIRE(d3.secretIdentity()->birthYear() == 1989);
-
-        }
+        checkData(outputFile);
     }
 
 
