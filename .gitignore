@@ -234,3 +234,10 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# vim temporaries
+*.swp
+
+# protozbuf generated files
+TestGeneratedCodeCs/generated
+TestGeneratedCodeCpp/generated
