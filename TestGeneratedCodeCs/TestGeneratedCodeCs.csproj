@@ -11,6 +11,8 @@
     <AssemblyName>TestGeneratedCodeCs</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProtobufDir>$(SolutionDir)ProtoZBuffer.Core\protobuf-generator\</ProtobufDir>
+    <ProtozbufPath>$(SolutionDir)bin\$(Configuration)\protozbuffer.exe</ProtozbufPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.ProtocolBuffers">
-      <HintPath>..\..\..\Trunk\3rdParties\csharp\Protobuf-2.4.1\bin\Release\Google.ProtocolBuffers.dll</HintPath>
+      <HintPath>$(ProtobufDir)Google.ProtocolBuffers.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
@@ -47,11 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileStructure.Common.IStretchable.cs" />
-    <Compile Include="FileStructure.Common.Stretchable.cs" />
-    <Compile Include="FileStructure.Common.WeakStretchable.cs" />
     <Compile Include="FileStructure.cs" />
-    <Compile Include="FileStructure.lazy.cs" />
+    <Compile Include="FileStructure\Common\FileStructure.Common.IStretchable.cs" />
+    <Compile Include="FileStructure\Common\FileStructure.Common.Stretchable.cs" />
+    <Compile Include="FileStructure\Common\FileStructure.Common.WeakStretchable.cs" />
+    <Compile Include="FileStructure\generated\FileStructure.lazy.cs" />
     <Compile Include="RequiredClasses.cs" />
     <Compile Include="TestFileStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,7 +77,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="BeforeBuild" Inputs="..\TestGeneratedCodeCpp\FileStructure.xml;..\bin\Release\protozbuffer.exe" Outputs="$(ProjectDir)\FileStructure.cs">
-    <Exec Command="..\bin\Release\protozbuffer.exe csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(ProjectDir) --protobufPath=C:\Dev\Trunk\Build\x64\Release\protobuf-bin --namespace=FileStructure" />
+  <Target Name="BeforeBuild" Inputs="..\TestGeneratedCodeCpp\FileStructure.xml;$(ProtozbufPath)" Outputs="$(ProjectDir)\FileStructure.cs">
+    <Exec Command="$(ProtozbufPath) csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(ProjectDir) --protobufPath=$(ProtobufDir) --namespace=FileStructure" />
   </Target>
 </Project>
