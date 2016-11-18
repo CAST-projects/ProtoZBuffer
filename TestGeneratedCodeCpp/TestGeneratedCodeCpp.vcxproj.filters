@@ -13,14 +13,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\FileStructure">
-      <UniqueIdentifier>{b509b78e-999b-4ebf-b7e4-dd395157e014}</UniqueIdentifier>
+    <Filter Include="generated">
+      <UniqueIdentifier>{dc87b6a1-adca-4b01-aa00-78dfde79c443}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FileStructure">
-      <UniqueIdentifier>{876ed9b7-5add-4e6e-aca5-9e7395008413}</UniqueIdentifier>
+    <Filter Include="generated\include">
+      <UniqueIdentifier>{e512452a-0b6d-4586-b4f5-b29df6cd54bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FileStructure\generated">
-      <UniqueIdentifier>{ca1293c1-371a-4ecc-9e89-ef9b3d4010cd}</UniqueIdentifier>
+    <Filter Include="generated\include\FileStructure">
+      <UniqueIdentifier>{a7598542-f133-43dc-9527-79b58d13dee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\include\FileStructure\generated">
+      <UniqueIdentifier>{d36bee21-33ab-454b-9e7f-af2661b56342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\include\FileStructure\Common">
+      <UniqueIdentifier>{1e00fc33-1540-469c-bace-c47f00a98aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\FileStructure">
+      <UniqueIdentifier>{c067d3a9-13ad-41f7-b2ec-99d651e22a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\FileStructure\generated">
+      <UniqueIdentifier>{0844ec23-3627-4b82-b1db-5d3b2037db2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,43 +42,49 @@
     <ClCompile Include="TestSaving.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Data.cpp">
-      <Filter>Source Files\FileStructure</Filter>
+    <ClCompile Include="generated\Data.cpp">
+      <Filter>generated</Filter>
     </ClCompile>
-    <ClCompile Include="Document.cpp">
-      <Filter>Source Files\FileStructure</Filter>
+    <ClCompile Include="generated\Document.cpp">
+      <Filter>generated</Filter>
     </ClCompile>
-    <ClCompile Include="FileStructure\generated\FileStructure.lazy.cpp">
-      <Filter>Source Files\FileStructure</Filter>
+    <ClCompile Include="generated\Identity.cpp">
+      <Filter>generated</Filter>
     </ClCompile>
-    <ClCompile Include="include\FileStructure\generated\FileStructure.pb.cc">
-      <Filter>Source Files\FileStructure</Filter>
+    <ClCompile Include="generated\FileStructure\generated\FileStructure.lazy.cpp">
+      <Filter>generated\FileStructure\generated</Filter>
     </ClCompile>
-    <ClCompile Include="Identity.cpp">
-      <Filter>Source Files\FileStructure</Filter>
+    <ClCompile Include="generated\include\FileStructure\generated\FileStructure.pb.cc">
+      <Filter>generated\include\FileStructure\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInvalidNestedMessage.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\Data.h">
-      <Filter>Header Files\FileStructure</Filter>
+    <ClInclude Include="generated\include\FileStructure\Data.h">
+      <Filter>generated\include\FileStructure</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\Document.h">
-      <Filter>Header Files\FileStructure</Filter>
+    <ClInclude Include="generated\include\FileStructure\Document.h">
+      <Filter>generated\include\FileStructure</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\Identity.h">
-      <Filter>Header Files\FileStructure</Filter>
+    <ClInclude Include="generated\include\FileStructure\Identity.h">
+      <Filter>generated\include\FileStructure</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\generated\FileStructure.lazy.h">
-      <Filter>Header Files\FileStructure\generated</Filter>
+    <ClInclude Include="generated\include\FileStructure\generated\FileStructure.lazy.h">
+      <Filter>generated\include\FileStructure\generated</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\generated\FileStructure.pb.h">
-      <Filter>Header Files\FileStructure\generated</Filter>
+    <ClInclude Include="generated\include\FileStructure\generated\FileStructure.pb.h">
+      <Filter>generated\include\FileStructure\generated</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileStructure\Common\ArrayList.h">
-      <Filter>Header Files\FileStructure\generated</Filter>
+    <ClInclude Include="generated\include\FileStructure\Common\ArrayList.h">
+      <Filter>generated\include\FileStructure\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="catch.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

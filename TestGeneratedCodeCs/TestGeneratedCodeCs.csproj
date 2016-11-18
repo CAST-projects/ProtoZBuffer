@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(SolutionDir)protozbuffer.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,8 +12,6 @@
     <AssemblyName>TestGeneratedCodeCs</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProtobufDir>$(SolutionDir)ProtoZBuffer.Core\protobuf-generator\</ProtobufDir>
-    <ProtozbufPath>$(SolutionDir)bin\$(Configuration)\protozbuffer.exe</ProtozbufPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,14 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileStructure.cs" />
-    <Compile Include="FileStructure\Common\FileStructure.Common.IStretchable.cs" />
-    <Compile Include="FileStructure\Common\FileStructure.Common.Stretchable.cs" />
-    <Compile Include="FileStructure\Common\FileStructure.Common.WeakStretchable.cs" />
-    <Compile Include="FileStructure\generated\FileStructure.lazy.cs" />
+    <Compile Include="generated\FileStructure.cs" />
+    <Compile Include="generated\FileStructure\Common\FileStructure.Common.IStretchable.cs" />
+    <Compile Include="generated\FileStructure\Common\FileStructure.Common.Stretchable.cs" />
+    <Compile Include="generated\FileStructure\Common\FileStructure.Common.WeakStretchable.cs" />
+    <Compile Include="generated\FileStructure\generated\FileStructure.lazy.cs" />
     <Compile Include="RequiredClasses.cs" />
     <Compile Include="TestFileStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestInvalidReferenceMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestGeneratedCodeCpp\FileStructure.xml">
@@ -78,6 +78,6 @@
   </Target>
   -->
   <Target Name="BeforeBuild" Inputs="..\TestGeneratedCodeCpp\FileStructure.xml;$(ProtozbufPath)" Outputs="$(ProjectDir)\FileStructure.cs">
-    <Exec Command="$(ProtozbufPath) csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(ProjectDir) --protobufPath=$(ProtobufDir) --namespace=FileStructure" />
+    <Exec Command="$(ProtozbufPath) csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(ProjectDir)generated --protobufPath=$(ProtobufDir) --namespace=FileStructure" />
   </Target>
 </Project>

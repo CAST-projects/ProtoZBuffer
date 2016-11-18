@@ -449,6 +449,8 @@ namespace ProtoZBuffer.Core.Generators
 @"        void Abstract{4}::add{1}({3}& item)
         {{
             assert((""Can't modify an already built object!"", !isBuilt()));
+            if (m_root != item.getRoot())
+                throw std::runtime_error(""All objects should share the same root"");
             m_header.add_{2}()->CopyFrom(item.getLocalMessageDescriptor());
         }}
 
@@ -507,6 +509,8 @@ namespace ProtoZBuffer.Core.Generators
             CppWriter.WriteLine(
 @"        void Abstract{4}::set{1}({3}& value)
         {{
+            if (m_root != value.getRoot())
+                throw std::runtime_error(""All objects should share the same root"");
             m_header.clear_{2}();
             m_header.mutable_{2}()->CopyFrom(value.getLocalMessageDescriptor());
             // TODO see if that works // m_header.set_allocated_{2}(value.getLocalMessageDescriptor());

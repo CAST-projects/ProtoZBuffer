@@ -454,6 +454,8 @@ public abstract class Abstract{0} implements ProtoOrBuilder
     public void add{0}({1} item)
     {{
         assert !isBuilt() : ""Can't modify an already built object!"";
+        if (_root != item.getRoot())
+            throw new IllegalArgumentException(""All objects have to share the same root"");
         getBuilder().add{0}(item.getLocalMessageDescriptor());
     }}
 
@@ -536,6 +538,8 @@ public abstract class Abstract{0} implements ProtoOrBuilder
     public void set{0}({1} value)
     {{
         assert !isBuilt() : ""Can't modify an already built object!"";
+        if (_root != item.getRoot())
+            throw new IllegalArgumentException(""All objects have to share the same root"");
         getBuilder().set{0}(value.getLocalMessageDescriptor());
     }}
 "
