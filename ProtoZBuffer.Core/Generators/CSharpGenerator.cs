@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using ProtoZBuffer.Utils;
 
 namespace ProtoZBuffer.Core.Generators
@@ -473,6 +474,8 @@ namespace ProtoZBuffer.Core.Generators
         public void Add{0}({1} item)
         {{
             Debug.Assert(!IsBuilt, ""Can't modify an already built object!"");
+            if (!ReferenceEquals(Root, item.Root))
+                throw new ArgumentException(""All objects have to share the same root"");
             Builder.Add{0}(item.LocalMessageDescriptor);
         }}
 
@@ -558,6 +561,8 @@ namespace ProtoZBuffer.Core.Generators
             set
             {{
                 Debug.Assert(!IsBuilt, ""Can't modify an already built object!"");
+                if (!ReferenceEquals(Root, value.Root))
+                    throw new ArgumentException(""All objects have to share the same root"");
                 Builder.{0} = value.LocalMessageDescriptor;
             }}
         }}

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)protozbuffer.targets" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -89,12 +90,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>include;.;C:\Dev\Trunk\3rdParties\cpp\includes\protobuf-2.5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\Trunk\3rdParties\cpp\binaries_$(Configuration)_$(PlatformTarget)\protobuf-2.5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>protobuf-2.5.0\lib\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -106,12 +107,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>include;.;C:\Dev\Trunk\3rdParties\cpp\includes\protobuf-2.5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\Trunk\3rdParties\cpp\binaries_$(Configuration)_$(PlatformTarget)\protobuf-2.5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>protobuf-2.5.0\lib\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -125,14 +126,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>include;.;C:\Dev\Trunk\3rdParties\cpp\includes\protobuf-2.5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\Trunk\3rdParties\cpp\binaries_$(Configuration)_$(PlatformTarget)\protobuf-2.5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>protobuf-2.5.0\lib\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -146,50 +147,52 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>include;.;C:\Dev\Trunk\3rdParties\cpp\includes\protobuf-2.5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\Trunk\3rdParties\cpp\binaries_$(Configuration)_$(PlatformTarget)\protobuf-2.5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>protobuf-2.5.0\lib\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Data.cpp" />
-    <ClCompile Include="Document.cpp" />
-    <ClCompile Include="FileStructure\generated\FileStructure.lazy.cpp" />
-    <ClCompile Include="Identity.cpp" />
-    <ClCompile Include="include\FileStructure\generated\FileStructure.pb.cc" />
+    <ClCompile Include="generated\Data.cpp" />
+    <ClCompile Include="generated\Document.cpp" />
+    <ClCompile Include="generated\FileStructure\generated\FileStructure.lazy.cpp" />
+    <ClCompile Include="generated\Identity.cpp" />
+    <ClCompile Include="generated\include\FileStructure\generated\FileStructure.pb.cc" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestInvalidNestedMessage.cpp" />
     <ClCompile Include="TestSaving.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FileStructure.xml">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\bin\Release\protozbuffer.exe cpp --input=%(FullPath) --output=$(ProjectDir) --protobufPath=C:\Dev\Trunk\3rdParties\cpp\binaries_release_x64\protobuf-2.5.0\protobuf-bin --namespace=%(Filename)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin\Release\protozbuffer.exe cpp --input=%(FullPath) --output=$(ProjectDir) --protobufPath=C:\Dev\Trunk\3rdParties\cpp\binaries_release_x64\protobuf-2.5.0\protobuf-bin --namespace=%(Filename)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\bin\Release\protozbuffer.exe cpp --input=%(FullPath) --output=$(ProjectDir) --protobufPath=C:\Dev\Trunk\3rdParties\cpp\binaries_release_x64\protobuf-2.5.0\protobuf-bin --namespace=%(Filename)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\bin\Release\protozbuffer.exe cpp --input=%(FullPath) --output=$(ProjectDir) --protobufPath=C:\Dev\Trunk\3rdParties\cpp\binaries_release_x64\protobuf-2.5.0\protobuf-bin --namespace=%(Filename)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
       <SubType>Designer</SubType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\FileStructure\Common\ArrayList.h" />
-    <ClInclude Include="include\FileStructure\Data.h" />
-    <ClInclude Include="include\FileStructure\Document.h" />
-    <ClInclude Include="include\FileStructure\generated\FileStructure.lazy.h" />
-    <ClInclude Include="include\FileStructure\generated\FileStructure.pb.h" />
-    <ClInclude Include="include\FileStructure\Identity.h" />
+    <ClInclude Include="catch.hpp" />
+    <ClInclude Include="generated\include\FileStructure\Common\ArrayList.h" />
+    <ClInclude Include="generated\include\FileStructure\Data.h" />
+    <ClInclude Include="generated\include\FileStructure\Document.h" />
+    <ClInclude Include="generated\include\FileStructure\generated\FileStructure.lazy.h" />
+    <ClInclude Include="generated\include\FileStructure\generated\FileStructure.pb.h" />
+    <ClInclude Include="generated\include\FileStructure\Identity.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

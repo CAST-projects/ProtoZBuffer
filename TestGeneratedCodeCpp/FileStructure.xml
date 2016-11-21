@@ -10,6 +10,8 @@
   <message name="Data" description="Data stored in the document. This fake data will contain many data types for testing purposes">
     <field id="1" modifier="required" name="identification" type="nestedMessage" messageType="Identity" />
     <field id="2" modifier="optional" name="secretIdentity" type="nestedMessage" messageType="Identity" />
+    <field id="3" modifier="repeated" name="reviewers" type="referenceMessage" messageType="Identity" />
+    <field id="4" modifier="optional" name="approver" type="referenceMessage" messageType="Identity" />
   </message>
 
   <message name="Identity">
