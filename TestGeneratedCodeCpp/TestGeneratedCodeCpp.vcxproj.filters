@@ -42,22 +42,22 @@
     <ClCompile Include="TestSaving.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="generated\Data.cpp">
-      <Filter>generated</Filter>
-    </ClCompile>
-    <ClCompile Include="generated\Document.cpp">
-      <Filter>generated</Filter>
-    </ClCompile>
-    <ClCompile Include="generated\Identity.cpp">
-      <Filter>generated</Filter>
-    </ClCompile>
-    <ClCompile Include="generated\FileStructure\generated\FileStructure.lazy.cpp">
-      <Filter>generated\FileStructure\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="generated\include\FileStructure\generated\FileStructure.pb.cc">
-      <Filter>generated\include\FileStructure\generated</Filter>
-    </ClCompile>
     <ClCompile Include="TestInvalidNestedMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)Document.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)FileStructure\generated\FileStructure.lazy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)Identity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)include\FileStructure\generated\FileStructure.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

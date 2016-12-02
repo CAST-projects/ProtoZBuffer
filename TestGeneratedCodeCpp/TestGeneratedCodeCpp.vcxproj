@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TestGeneratedCodeCpp</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <GeneratedFilesDir>$(ProjObjDir)$(MSBuildProjectName)\generated\</GeneratedFilesDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,15 +73,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjOutDir)</OutDir>
+    <IntDir>$(ProjIntDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjOutDir)</OutDir>
+    <IntDir>$(ProjIntDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjOutDir)</OutDir>
+    <IntDir>$(ProjIntDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjOutDir)</OutDir>
+    <IntDir>$(ProjIntDir)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,7 +99,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;$(GeneratedFilesDir);$(GeneratedFilesDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +116,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;$(GeneratedFilesDir);$(GeneratedFilesDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;$(GeneratedFilesDir);$(GeneratedFilesDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,7 +156,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;generated;generated\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;protobuf-2.5.0\include;$(GeneratedFilesDir);$(GeneratedFilesDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,29 +168,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="generated\Data.cpp" />
-    <ClCompile Include="generated\Document.cpp" />
-    <ClCompile Include="generated\FileStructure\generated\FileStructure.lazy.cpp" />
-    <ClCompile Include="generated\Identity.cpp" />
-    <ClCompile Include="generated\include\FileStructure\generated\FileStructure.pb.cc" />
+    <ClCompile Include="$(GeneratedFilesDir)Data.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)Document.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)FileStructure\generated\FileStructure.lazy.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)Identity.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)include\FileStructure\generated\FileStructure.pb.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestInvalidNestedMessage.cpp" />
     <ClCompile Include="TestSaving.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FileStructure.xml">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProtozbufPath) cpp --input=%(FullPath) --output=$(ProjectDir)generated\ --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\bin\Release\protozbuffer.exe</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">@echo $(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)
+$(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GeneratedFilesDir)%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProtozbufPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">@echo $(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)
+$(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GeneratedFilesDir)%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProtozbufPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">@echo $(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)
+$(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(GeneratedFilesDir)%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProtozbufPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">@echo $(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)
+$(ProtozbufPath) cpp --input=%(FullPath) --output=$(GeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=%(Filename)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(GeneratedFilesDir)%(FileName)\generated\%(FileName).lazy.cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProtozbufPath)</AdditionalInputs>
       <SubType>Designer</SubType>
     </CustomBuild>
   </ItemGroup>

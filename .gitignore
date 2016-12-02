@@ -237,7 +237,3 @@ _Pvt_Extensions
 
 # vim temporaries
 *.swp
-
-# protozbuf generated files
-TestGeneratedCodeCs/generated
-TestGeneratedCodeCpp/generated

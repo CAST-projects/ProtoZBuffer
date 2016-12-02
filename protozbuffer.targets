@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProtobufDir>$(SolutionDir)ProtoZBuffer.Core\protobuf-generator\</ProtobufDir>
-        <ProtozbufPath>$(SolutionDir)bin\$(Configuration)\protozbuffer.exe</ProtozbufPath>
+        <RelOutPath>$(MSBuildProjectName)\$(Configuration)\</RelOutPath>
+        <ProtozbufPath>$(SolutionDir)bin\ProtoZBuffer.Console\$(Configuration)\ProtoZBuffer.exe</ProtozbufPath>
+        <ProjObjDir>$(SolutionDir)obj\</ProjObjDir>
+        <ProjIntDir>$(ProjObjDir)$(RelOutPath)\</ProjIntDir>
+        <ProjOutDir>$(SolutionDir)bin\$(RelOutPath)\</ProjOutDir>
+        <BaseIntermediateOutputPath>$(ProjIntDir)</BaseIntermediateOutputPath>
+        <OutputPath>$(ProjOutDir)</OutputPath>
     </PropertyGroup>
 </Project>
