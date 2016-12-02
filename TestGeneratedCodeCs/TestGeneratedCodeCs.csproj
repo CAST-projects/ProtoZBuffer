@@ -12,12 +12,12 @@
     <AssemblyName>TestGeneratedCodeCs</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <CsGeneratedFilesDir>$(SolutionDir)obj\$(MSBuildProjectName)\generated\</CsGeneratedFilesDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -48,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="generated\FileStructure.cs" />
-    <Compile Include="generated\FileStructure\Common\FileStructure.Common.IStretchable.cs" />
-    <Compile Include="generated\FileStructure\Common\FileStructure.Common.Stretchable.cs" />
-    <Compile Include="generated\FileStructure\Common\FileStructure.Common.WeakStretchable.cs" />
-    <Compile Include="generated\FileStructure\generated\FileStructure.lazy.cs" />
+    <Compile Include="$(CsGeneratedFilesDir)FileStructure.cs" />
+    <Compile Include="$(CsGeneratedFilesDir)FileStructure\Common\FileStructure.Common.IStretchable.cs" />
+    <Compile Include="$(CsGeneratedFilesDir)FileStructure\Common\FileStructure.Common.Stretchable.cs" />
+    <Compile Include="$(CsGeneratedFilesDir)FileStructure\Common\FileStructure.Common.WeakStretchable.cs" />
+    <Compile Include="$(CsGeneratedFilesDir)FileStructure\generated\FileStructure.lazy.cs" />
     <Compile Include="RequiredClasses.cs" />
     <Compile Include="TestFileStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +77,6 @@
   </Target>
   -->
   <Target Name="BeforeBuild" Inputs="..\TestGeneratedCodeCpp\FileStructure.xml;$(ProtozbufPath)" Outputs="$(ProjectDir)\FileStructure.cs">
-    <Exec Command="$(ProtozbufPath) csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(ProjectDir)generated --protobufPath=$(ProtobufDir) --namespace=FileStructure" />
+    <Exec Command="$(ProtozbufPath) csharp --input=..\TestGeneratedCodeCpp\FileStructure.xml --output=$(CsGeneratedFilesDir) --protobufPath=$(ProtobufDir) --namespace=FileStructure" />
   </Target>
 </Project>
