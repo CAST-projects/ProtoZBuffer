@@ -42,12 +42,17 @@ namespace ProtoZBuffer.Core.Generators
             CopyResourceToOutput(assembly, "IFormat.java", OutputFolder, ResourceNamespace, "");
         }
 
-        protected override string ProtocCommandLine
+        protected override bool HasPluginExecutable()
+        {
+            // inside protoc.exe
+            return true;
+        }
+
+        protected override string ProtocArguments
         {
             get
             {
-                var cmd = Path.Combine(ProtoGenFolder, "protoc.exe"); // path to protoc.exe
-                cmd += string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
+                var cmd = string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
                 cmd += string.Format(" --java_out=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
                 cmd += string.Format(" \"{0}\"", ProtoFile);
                 return cmd;

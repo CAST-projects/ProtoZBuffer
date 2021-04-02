@@ -35,6 +35,12 @@ namespace ProtoZBuffer.Core.Generators
         private TextWriter IncludeWriter { get; set; }
         private TextWriter CppWriter { get; set; }
 
+        protected override bool HasPluginExecutable()
+        {
+            // inside protoc.exe
+            return true;
+        }
+
         protected override void InstallResources()
         {
             SafeDirectoryCreation(CppFolder);
@@ -45,15 +51,14 @@ namespace ProtoZBuffer.Core.Generators
             CopyResourceToOutput(assembly, "Util.inc", IncludesFolder, ResourceNamespace, "");
         }
 
-        protected override string ProtocCommandLine
+        protected override string ProtocArguments
         {
             get
             {
                 var outputFolder = Path.Combine(IncludesFolder, GetNamespacePath(GeneratedNamespace));
                 SafeDirectoryCreation(outputFolder);
 
-                var cmd = Path.Combine(ProtoGenFolder, "protoc.exe"); // path to protoc.exe
-                cmd += string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
+                var cmd = string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
                 cmd += string.Format(" --cpp_out=\"{0}\"", outputFolder); // where to output the generated protobuf files
                 cmd += string.Format(" \"{0}\"", ProtoFile);
                 return cmd;

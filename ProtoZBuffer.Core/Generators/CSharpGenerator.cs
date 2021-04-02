@@ -32,13 +32,25 @@ namespace ProtoZBuffer.Core.Generators
             CopyResourceToOutput(assembly,"WeakStretchable.cs", OutputFolder, ResourceNamespace, ResourceNamespace + '.');
         }
 
-        protected override string ProtocCommandLine
+        private static string ProtoGenBinary { get { return "protoc-gen-cs.exe"; } }
+
+        protected override bool HasPluginExecutable()
+        {
+            var exist = File.Exists(Path.Combine(ProtoGenFolder, ProtoGenBinary));
+            if (!exist)
+            {
+                Logger.Fatal("Plugin \"" + Path.Combine(ProtoGenFolder, ProtoGenBinary) + "\" is missing.");
+            }
+            return exist;
+        }
+
+        protected override string ProtocArguments
         {
             get
             {
-                var cmd = Path.Combine(ProtoGenFolder, @"ProtoGen.exe");
-                cmd += string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
-                cmd += string.Format(" -output_directory=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
+                var cmd = string.Format(" --proto_path=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to search the .proto file
+                cmd += string.Format(" --cs_out=\"{0}\"", Path.GetDirectoryName(ProtoFile)); // where to output the generated protobuf files
+                cmd += string.Format(" --plugin=\"{0}\"", ProtoGenBinary);
                 cmd += string.Format(" \"{0}\"", ProtoFile);
                 return cmd;
             }
