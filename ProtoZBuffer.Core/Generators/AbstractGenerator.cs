@@ -29,6 +29,9 @@ namespace ProtoZBuffer.Core.Generators
         ///<summary>Path to the input protoz file</summary> 
         public string ProtoZFile { get; set; }
 
+        ///<summary>Do we generate dllexport for c++</summary> 
+        public bool CppDll { get; set; }
+
         protected string ProtocBinary
         {
             get

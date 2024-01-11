@@ -57,7 +57,8 @@ namespace ProtoZBuffer.Console
                 Namespace = option.Namespace,
                 OutputFolder = option.Folder,
                 ProtoZFile = option.File,
-                ProtoGenFolder = option.ProtobufPath
+                ProtoGenFolder = option.ProtobufPath,
+                CppDll = option.CppDll
             };
 
             return generator.Launch();

@@ -58,6 +58,9 @@ namespace ProtoZBuffer.Console
             Required = false)]
         public string ProtobufPath { get; set; }
 
+        [Option('d', "dll", Required=false, DefaultValue=false, HelpText="For C++, generate code with dllexport/dllimport switch")]
+        public bool CppDll { get; set; }
+
         public abstract bool Accept(IOptionVisitor visitor);
     }
 
