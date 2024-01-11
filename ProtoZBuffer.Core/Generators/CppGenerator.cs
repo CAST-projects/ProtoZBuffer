@@ -123,6 +123,19 @@ namespace ProtoZBuffer.Core.Generators
 #include ""{1}.pb.h""
 #include ""{0}/ArrayList.h""
 ", GetNamespacePathSlash(ResourceNamespace), DocumentName);
+            
+            if (CppDll)
+            {
+                IncludeWriter.WriteLine(@"
+
+#ifdef CASTIL_EXPORTS
+#define CASTIL_API __declspec(dllexport)
+#else
+#define CASTIL_API __declspec(dllimport)
+#endif
+             
+");
+            }
 
             // forward declaration for final client classes
             IncludeWriter.WriteLine(GetNamespaceBegin(Namespace));
@@ -274,10 +287,16 @@ namespace ProtoZBuffer.Core.Generators
 
         protected override void InitializeAbstractClass(messageType message)
         {
+            string export = "";
+            if (CppDll)
+            {
+                export = "CASTIL_API ";
+            }
+
             IncludeWriter.WriteLine(
-@"    class Abstract{0} : public ProtoOrBuilder
+@"    class {0}Abstract{1} : public ProtoOrBuilder
     {{"
-                , message.name);
+                , export, message.name);
         }
 
         protected override void EndAbstractClass(messageType message)
